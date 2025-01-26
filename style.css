@@ -1,7 +1,7 @@
 /* Variables for easier color customization */
 :root {
   --primary-color: #007bff; /* Blue */
-  --secondary-color: #6610f2; /* Purple */
+  --secondary-color: #005079; /* Purple */
   --background-color: #181818; /* Dark background */
   --text-color: #fff; /* Light text color */
   --accent-color: #ff5722; /* Orange */
@@ -203,13 +203,22 @@ nav img {
 }
 
 /* Portfolio Section */
+/* Portfolio Section */
 .portfolio-sec {
   background: var(--background-color);
   width: 100%;
-  padding: 100px 0px;
+  padding: 100px 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.title h2 {
+  font-size: 36px;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .portfolio-container {
@@ -218,62 +227,190 @@ nav img {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-gap: 30px;
+  justify-items: center;
 }
 
 .portfolio-box {
+  width: 100%;
   perspective: 1000px; /* 3D perspective */
 }
 
-.portfolio-box .card {
+.card {
   width: 100%;
   height: 300px;
   background-color: #282828; /* Darker background for cards */
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Shadow effect */
   transform-style: preserve-3d;
-  transition: transform 0.5s;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.portfolio-box:hover .card {
-  transform: rotateY(20deg); /* 3D rotation on hover */
+.card:hover {
+  transform: rotateY(20deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
 }
 
-.portfolio-box .card-front,
-.portfolio-box .card-back {
+.card-front,
+.card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  border-radius: 10px;
 }
 
-.portfolio-box .card-front {
+.card-front {
   transform: rotateY(0deg);
-}
-
-.portfolio-box .card-back {
-  transform: rotateY(180deg);
-  background-color: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  color: #fff;
+}
+
+.card-front i {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.card-front h5 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background-color: var(--primary-color);
   color: #fff;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.portfolio-box .card-front img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.portfolio-box .card-back h5 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.portfolio-box .card-back p {
+.card-back .portfolio-p {
   font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
 }
+
+.card-back .button {
+  background-color: #fff;
+  color: var(--primary-color);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.card-back .button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .portfolio-container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .title h2 {
+    font-size: 28px;
+  }
+}
+
+
+/* Top Projects Section */
+.top-projects-sec {
+  background: var(--background-color);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.top-projects-sec .title h2 {
+  font-size: 36px;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.project-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.project-card {
+  background-color: #282828;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.project-card h5 {
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.project-card p {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.project-card .button {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.project-card .button:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .top-projects-sec .title h2 {
+    font-size: 28px;
+  }
+
+  .project-card h5 {
+    font-size: 20px;
+  }
+
+  .project-card p {
+    font-size: 14px;
+  }
+}
+
 
 /* Contact Section */
 .contact {
