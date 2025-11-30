@@ -4,249 +4,612 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahimur Rahman Khan</title>
+    <title>Mahimur Rahman Khan - Portfolio</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-
+    
+    <!-- Icons -->
     <script src="https://kit.fontawesome.com/7b0c0dc466.js" crossorigin="anonymous"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 
 <body>
-    <header class="header">
-        <nav>
-            <a href="index.html"><img src="images/logo.png" alt="Mahimur Rahman"></a>
-            <div class="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <div class="nav-links">
-              <ul>
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#about">ABOUT</a></li>
-                <li><a href="#skills">SKILLS</a></li>
-                <li><a href="#resume">RESUME</a></li>
-                <li><a href="#portfolio">PORTFOLIO</a></li>
-                <li><a href="#contact">CONTACT</a></li>
-              </ul>
-            </div>
-          </nav>
-
-        <div class="text-box">
-            <p>Hello, I am</p>
-            <h1>Mahimur Rahman Khan</h1>
-            <p>I am a Software Engineer || Web Developer || Graphic Designer || Photographer </p>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Loading Portfolio...</p>
         </div>
-    </header>
+    </div>
 
-    <main> 
-        <section id="about">
-            <div class="main">
-              <div class="about-text">
-                <h2>About Me</h2>
-                <p>Software Engineering graduate with a strong foundation in IT solutions, project management, and data analysis. Eager to apply academic knowledge to real-world challenges, focusing on delivering quality software and optimizing processes. Passionate about continuous learning, teamwork, and contributing to impactful projects.</p>
-              </div>
-              <!-- Image Grid Section -->
-              <div class="image-grid">
-                <img src="Images/about1.jpg" alt="Project Image 1">
-                <img src="Images/about2.jpg" alt="Project Image 2">
-                <p>Software Engineering graduate with a strong foundation in IT solutions, project management, and data analysis. Eager to apply academic knowledge to real-world challenges, focusing on delivering quality software and optimizing processes. Passionate about continuous learning, teamwork, and contributing to impactful projects.</p>
-              </div>
-
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <img src="Images/logo.png" alt="Mahimur Rahman" class="logo-img">
+                <span class="logo-text">MRK</span>
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                
+                <div class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
             </div>
-          </section>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-up" data-aos-delay="200">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">
+                    <span class="typing-text">Mahimur Rahman Khan</span>
+                </h1>
+                <p class="hero-description">
+                    <span class="highlight">Software Engineer</span> • 
+                    <span class="highlight">Web Developer</span> • 
+                    <span class="highlight">Creative Designer</span>
+                </p>
+                <p class="hero-subtitle">
+                    Crafting digital experiences with passion and precision
+                </p>
+            </div>
+            
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+                <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+            
+            <div class="hero-social" data-aos="fade-up" data-aos-delay="600">
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Get to know me</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <div class="about-intro">
+                        <p class="lead">
+                            I'm a passionate <strong>Software Engineer</strong> and recent graduate with a strong foundation in 
+                            IT solutions, project management, and data analysis.
+                        </p>
+                        
+                        <p>
+                            As a Software Engineering graduate, I bring fresh perspectives and cutting-edge knowledge 
+                            to real-world challenges. I'm eager to apply my academic knowledge while focusing on 
+                            delivering quality software and optimizing processes through innovative solutions.
+                        </p>
+                        
+                        <p>
+                            I'm passionate about continuous learning, teamwork, and contributing to impactful projects. 
+                            My diverse skill set spans web development, graphic design, photography, and project management, 
+                            allowing me to create comprehensive digital experiences.
+                        </p>
+                    </div>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="50">0</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="2">0</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="15">0</span>
+                            <span class="stat-label">Technologies</span>
+                        </div>
+                    </div>
+                    
+                    <div class="about-buttons">
+                        <a href="#contact" class="btn btn-primary">Hire Me</a>
+                        <a href="#" class="btn btn-outline">Download CV</a>
+                    </div>
+                </div>
+                
+                <div class="about-visual" data-aos="fade-left">
+                    <div class="about-image-container">
+                        <img src="Images/about1.jpg" alt="Mahimur Rahman Khan" class="about-image main-image">
+                        <img src="Images/about2.jpg" alt="Work Environment" class="about-image floating-image">
+                        
+                        <div class="experience-badge">
+                            <div class="badge-content">
+                                <span class="badge-number">2+</span>
+                                <span class="badge-text">Years<br>Experience</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
           
-        
-        <section class="skills-section">
-            <h2>My Skills</h2>
-            <div class="skills-container">
-                <div class="skill-item">
-                    <i class="fas fa-code"></i>
-                    <h3>Programming & Web Technologies</h3>
-                    <p>Java, MVC, Python, WordPress,Docker, Github HTML, Tailwind CSS</p>
-                </div>
-                <div class="skill-item">
-                    <i class="fa-brands fa-figma"></i>
-                    <h3>Design & Creative Tools</h3>
-                    <p> Adobe Photoshop,
-                        Adobe Illustrator,
-                        Figma,
-                        Canva,
-                        Graphics Designing</p>
-                </div>
-                <div class="skill-item">
-                    <i class="fa-solid fa-magnifying-glass-chart"></i>
-                    <h3>Data & Analytics Tools</h3>
-                    <p>Power BI,
-                        Python,
-                        Pandas,
-                        Numpy,
-                        MySQL,
-                        NoSQL</p>
-                </div>
-                <div class="skill-item">
-                    <i class="fa-solid fa-hands-holding-circle"></i>                    <h3>Project Management & Methodologies</h3>
-                    <p>Jira
-                        Scrum,
-                        Agile,
-                        Azure DevOps,
-                        Trello,
-                        Project Management,
-                        Resource Allocation</p>
-                </div>
-                <div class="skill-item">
-                    <i class="fa-solid fa-envelopes-bulk"></i>                    <h3>Marketing & Social Media</h3>
-                    <p>
-                        Social Media Management & Marketing,
-                        SEO,
-                        Prompt Engineering</p>
-                </div>
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">What I do</span>
+                <h2 class="section-title">My Skills</h2>
+                <div class="section-divider"></div>
             </div>
-        </section>
-
-        <section id="portfolio" class="portfolio-sec">
-            <div class="title">
-                <h2>Portfolio</h2>
-            </div>
-            <div class="portfolio-container">
-                <div class="portfolio-box">
-                    <div class="card">
-                        <div class="card-front">
-                            <i class="fa-solid fa-bars"></i>
-                            <h5>Web Development</h5>
-                        </div>
-                        <div class="card-back">
-                            <div class="portfolio-p">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni placeat eum provident assumenda ea doloremque, vitae corporis rerum velit laborum aut saepe! Qui nihil, aspernatur exercitationem eos necessitatibus quidem distinctio explicabo. Ab fugit temporibus reiciendis, esse non minus placeat dolor, nostrum recusandae assumenda enim soluta vel! Similique, dolor officia? Beatae.
+            
+            <div class="skills-content">
+                <!-- Technical Skills -->
+                <div class="skills-category" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="category-title">Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
                             </div>
-                            <a href="#" class="button">See More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-box">
-                    <div class="card">
-                        <div class="card-front">
-                            <i class="fa-solid fa-layer-group"></i>
-                            <h5>Graphic Design</h5>
-                        </div>
-                        <div class="card-back">
-                            <div class="portfolio-p">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni placeat eum provident assumenda ea doloremque, vitae corporis rerum velit laborum aut saepe! Qui nihil, aspernatur exercitationem eos necessitatibus quidem distinctio explicabo. Ab fugit temporibus reiciendis, esse non minus placeat dolor, nostrum recusandae assumenda enim soluta vel! Similique, dolor officia? Beatae.
+                            <h4>Frontend Development</h4>
+                            <div class="skill-tags">
+                                <span class="tag">HTML5</span>
+                                <span class="tag">CSS3</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">WordPress</span>
+                                <span class="tag">Tailwind CSS</span>
                             </div>
-                            <a href="#" class="button">See More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-box">
-                    <div class="card">
-                        <div class="card-front">
-                            <i class="fa-solid fa-camera"></i>
-                            <h5>Photographer</h5>
-                        </div>
-                        <div class="card-back">
-                            <div class="portfolio-p">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni placeat eum provident assumenda ea doloremque, vitae corporis rerum velit laborum aut saepe! Qui nihil, aspernatur exercitationem eos necessitatibus quidem distinctio explicabo. Ab fugit temporibus reiciendis, esse non minus placeat dolor, nostrum recusandae assumenda enim soluta vel! Similique, dolor officia? Beatae.
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-progress="90"></div>
                             </div>
-                            <a href="#" class="button">See More</a>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h4>Backend Development</h4>
+                            <div class="skill-tags">
+                                <span class="tag">Java</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">MVC</span>
+                                <span class="tag">Docker</span>
+                                <span class="tag">GitHub</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-progress="85"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4>Database & Analytics</h4>
+                            <div class="skill-tags">
+                                <span class="tag">MySQL</span>
+                                <span class="tag">NoSQL</span>
+                                <span class="tag">Power BI</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">Pandas</span>
+                                <span class="tag">NumPy</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-progress="80"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-
-        <section id="top-projects" class="top-projects-sec">
-            <div class="title">
-                <h2>Top Projects</h2>
-            </div>
-            <div class="projects-container">
-                <div class="project-box">
-                    <div class="project-card">
-                        <h5>Project 1</h5>
-                        <p>A short description of Project 1. It showcases the features and functionality of the project.</p>
-                        <a href="https://github.com/yourusername/project1" target="_blank" class="button">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-box">
-                    <div class="project-card">
-                        <h5>Project 2</h5>
-                        <p>A short description of Project 2. This project is focused on solving a specific problem or demonstrating a technology.</p>
-                        <a href="https://github.com/yourusername/project2" target="_blank" class="button">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-box">
-                    <div class="project-card">
-                        <h5>Project 3</h5>
-                        <p>A short description of Project 3. It involves a set of features or integrations with various systems.</p>
-                        <a href="https://github.com/yourusername/project3" target="_blank" class="button">View on GitHub</a>
+                
+                <!-- Creative Skills -->
+                <div class="skills-category" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="category-title">Creative & Design</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h4>Graphic Design</h4>
+                            <div class="skill-tags">
+                                <span class="tag">Adobe Photoshop</span>
+                                <span class="tag">Illustrator</span>
+                                <span class="tag">Figma</span>
+                                <span class="tag">Canva</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-progress="88"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h4>Photography</h4>
+                            <div class="skill-tags">
+                                <span class="tag">Portrait</span>
+                                <span class="tag">Landscape</span>
+                                <span class="tag">Product</span>
+                                <span class="tag">Editing</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-progress="75"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h4>Project Management</h4>
+                            <div class="skill-tags">
+                                <span class="tag">Agile</span>
+                                <span class="tag">Scrum</span>
+                                <span class="tag">Jira</span>
+                                <span class="tag">Azure DevOps</span>
+                                <span class="tag">Trello</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar" data-progress="82"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-
-        <section id="contact" class="contact">
-            <div class="container">
-                <div class="content">
-                    <div class="left-side"> 
-                        <div class="address">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div class="topic">Address</div>
-                            <div class="text-one"> Montreal</div>
-                            <div class="text-two"> Quebec, Canada</div>
-                        </div>
-
-                        <div class="address">
-                            <i class="fa-solid fa-phone"></i><div class="topic">Contact No</div>
-                            <div class="text-one"> +1 (438)-596-5091</div>
-                            <div class="text-two"> </div>
-                        </div>
-
-                        <div class="address">
-                            <i class="fa-solid fa-envelope"></i><div class="topic">E-mail</div>
-                            <div class="text-one"> mahimrk.a@gmail.com</div>
-                            <div class="text-two"> mahimurrahman.khan@concordia.ca</div>
-                        </div>
-                    </div>
-                    <div class="right-side">
-                        <div class="message">Get in touch with me</div>
-                        <p>If you have any queries related to my works, you can send me message from here. I would love to help you out.</p>
-                        <form action="mailto:mahimrk.a@gmail.com" method="post" enctype="text/plain">
-                            <div class="input-box">
-                                <input type="text" placeholder="Enter your name">
-                            </div>
-
-                            <div class="input-box">
-                                <input type="email" placeholder="Enter your e-mail">
-                            </div>
-
-                            <div class="input-box message-box">
-                                <textarea></textarea>
-                            </div>
-
-                            <div class="button">
-                                <input type="button"value="Send Now">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>Mahimur Rahman Khan</p>
-        <p> Montreal, Quebec, Canada</p>
-        <div class="social">
-            <a href=""><i class="fa-brands fa-facebook"></i></a>
-            <a href=""><i class="fa-brands fa-instagram-square"></i></a>
-            <a href=""><i class="fa-brands fa-linkedin"></i></a>
-            <a href=""><i class="fa-brands fa-youtube"></i></a>
         </div>
-        <p class="end">&copy Copyright by Mahimur Rahman Khan</p>
+    </section>
 
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">My work</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="portfolio-filters" data-aos="fade-up" data-aos-delay="100">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+                <button class="filter-btn" data-filter="photo">Photography</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web" data-aos="fade-up" data-aos-delay="100">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="Images/about1.jpg" alt="Business Management System">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Business Management System</h3>
+                                    <p>Web application for managing business operations and data analysis</p>
+                                    <div class="portfolio-tech">
+                                        <span>Java</span>
+                                        <span>MySQL</span>
+                                        <span>Power BI</span>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="https://github.com/mahimur" target="_blank" class="portfolio-link"><i class="fab fa-github"></i></a>
+                                        <a href="https://github.com/mahimur" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="design" data-aos="fade-up" data-aos-delay="200">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="Images/about2.jpg" alt="Brand Identity Design">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Brand Identity Design</h3>
+                                    <p>Complete brand identity and visual design system</p>
+                                    <div class="portfolio-tech">
+                                        <span>Illustrator</span>
+                                        <span>Photoshop</span>
+                                        <span>Figma</span>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="https://behance.net/mahimur" target="_blank" class="portfolio-link"><i class="fab fa-behance"></i></a>
+                                        <a href="https://behance.net/mahimur" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="web" data-aos="fade-up" data-aos-delay="300">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="Images/about3.JPG" alt="Data Analytics Dashboard">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Data Analytics Dashboard</h3>
+                                    <p>Interactive dashboard for business intelligence and reporting</p>
+                                    <div class="portfolio-tech">
+                                        <span>Python</span>
+                                        <span>Power BI</span>
+                                        <span>MySQL</span>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="https://github.com/mahimur" target="_blank" class="portfolio-link"><i class="fab fa-github"></i></a>
+                                        <a href="https://github.com/mahimur" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="photo" data-aos="fade-up" data-aos-delay="400">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="Images/about1.jpg" alt="Portrait Photography">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Portrait Photography</h3>
+                                    <p>Professional portrait and lifestyle photography</p>
+                                    <div class="portfolio-tech">
+                                        <span>Canon 5D</span>
+                                        <span>Lightroom</span>
+                                        <span>Photoshop</span>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="https://instagram.com/mahimur" target="_blank" class="portfolio-link"><i class="fab fa-instagram"></i></a>
+                                        <a href="https://instagram.com/mahimur" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="design" data-aos="fade-up" data-aos-delay="500">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="Images/about2.jpg" alt="Mobile App UI">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Mobile App UI/UX</h3>
+                                    <p>Modern mobile application interface design</p>
+                                    <div class="portfolio-tech">
+                                        <span>Figma</span>
+                                        <span>Sketch</span>
+                                        <span>Principle</span>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="https://mahimur.vercel.app/" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="https://mahimur.vercel.app/" target="_blank" class="portfolio-link"><i class="fas fa-globe"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="web" data-aos="fade-up" data-aos-delay="600">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <img src="Images/about3.JPG" alt="Project Management Tool">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h3>Project Management Tool</h3>
+                                    <p>Agile project management system with team collaboration</p>
+                                    <div class="portfolio-tech">
+                                        <span>Java</span>
+                                        <span>Docker</span>
+                                        <span>NoSQL</span>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="https://github.com/mahimur" target="_blank" class="portfolio-link"><i class="fab fa-github"></i></a>
+                                        <a href="https://github.com/mahimur" target="_blank" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-cta" data-aos="fade-up" data-aos-delay="700">
+                <p>Interested in seeing more of my work?</p>
+                <a href="#contact" class="btn btn-primary">Let's Talk</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Let's work together</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-intro">
+                        <h3>Let's discuss your project</h3>
+                        <p>I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                    </div>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>Montreal, Quebec<br>Canada</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p>+1 (438) 596-5091</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>mahimrk.a@gmail.com<br>mahimurrahman.khan@concordia.ca</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <h4>Follow Me</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form" data-aos="fade-left">
+                    <form class="form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="Images/logo.png" alt="Mahimur Rahman Khan" class="footer-logo-img">
+                        <span class="footer-logo-text">MRK</span>
+                    </div>
+                    <p class="footer-description">
+                        Software Engineer passionate about creating innovative digital solutions 
+                        and beautiful user experiences.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#skills">Skills</a></li>
+                            <li><a href="#portfolio">Portfolio</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">UI/UX Design</a></li>
+                            <li><a href="#">Photography</a></li>
+                            <li><a href="#">Consulting</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <div class="footer-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-divider"></div>
+                <div class="footer-copyright">
+                    <p>&copy; 2024 Mahimur Rahman Khan. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart"></i> in Montreal</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
