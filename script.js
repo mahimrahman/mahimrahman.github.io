@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeParticles();
     initializeAnimations();
+    initializeExperienceFilters();
     initializePortfolioFilters();
     initializeContactForm();
     initializeThemeToggle();
@@ -144,6 +145,41 @@ function initializeAnimations() {
             offset: 100
         });
     }
+}
+
+// Experience Filters
+function initializeExperienceFilters() {
+    const filterButtons = document.querySelectorAll('.experience-filters .filter-btn');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    if (filterButtons.length === 0) return;
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const location = button.getAttribute('data-location');
+            
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            timelineItems.forEach(item => {
+                const itemLocation = item.getAttribute('data-location');
+                
+                if (location === 'all' || itemLocation === location) {
+                    item.style.display = 'flex';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
 }
 
 // Portfolio Filters
