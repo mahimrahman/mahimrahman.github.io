@@ -8,70 +8,84 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Modern subtle indigo - primary accent
+        // Sophisticated slate & charcoal - primary neutrals
         primary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+          50: '#f8f9fa',
+          100: '#f1f3f5',
+          200: '#e9ecef',
+          300: '#dee2e6',
+          400: '#ced4da',
+          500: '#adb5bd',
+          600: '#868e96',
+          700: '#495057',
+          800: '#343a40',
+          900: '#212529',
+          950: '#0d0f12',
         },
-        // Soft cyan - secondary accent
+        // Warm terracotta - primary accent
         accent: {
-          50: '#ecfeff',
-          100: '#cffafe',
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
+          50: '#fef6f3',
+          100: '#fde9e1',
+          200: '#fbd2c3',
+          300: '#f7b19a',
+          400: '#f28b6f',
+          500: '#e8664a',
+          600: '#d44d31',
+          700: '#b23e27',
+          800: '#923525',
+          900: '#783024',
         },
-        // Neutral slate - clean modern grays
+        // Refined teal - secondary accent
+        secondary: {
+          50: '#f0faf8',
+          100: '#d9f2ed',
+          200: '#b3e5db',
+          300: '#81d2c5',
+          400: '#52b9ab',
+          500: '#369b8f',
+          600: '#297d74',
+          700: '#24655f',
+          800: '#21514d',
+          900: '#1f4441',
+        },
+        // Sophisticated neutrals - charcoal & stone
         neutral: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          850: '#172033',
-          900: '#0f172a',
-          950: '#020617',
+          50: '#fafafa',
+          100: '#f4f4f5',
+          200: '#e4e4e7',
+          300: '#d4d4d8',
+          400: '#a1a1aa',
+          500: '#71717a',
+          600: '#52525b',
+          700: '#3f3f46',
+          800: '#27272a',
+          850: '#1c1c1f',
+          900: '#18181b',
+          950: '#09090b',
         },
-        // Development - emerald green
+        // Development - sage green
         dev: {
-          400: '#34d399',
-          500: '#10b981',
-          600: '#059669',
+          400: '#7fb069',
+          500: '#679b54',
+          600: '#567d47',
         },
-        // UI/UX - purple
+        // UI/UX - sophisticated plum
         uiux: {
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
+          400: '#9d85bd',
+          500: '#7d6a9f',
+          600: '#655582',
         },
-        // Design - rose/pink
+        // Design - coral
         design: {
-          400: '#fb7185',
-          500: '#f43f5e',
-          600: '#e11d48',
+          400: '#ff8a80',
+          500: '#e57373',
+          600: '#c95d5d',
         },
-        // Photography - amber
+        // Photography - warm amber
         photo: {
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
+          400: '#f4a261',
+          500: '#e76f51',
+          600: '#d35d41',
         },
       },
       fontFamily: {

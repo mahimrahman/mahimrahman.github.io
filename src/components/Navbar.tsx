@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
+import { ChevronDown, Code2, Monitor, Figma, PenTool, Camera } from 'lucide-react'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -15,10 +16,10 @@ const Navbar = () => {
   ]
 
   const portfolioItems = [
-    { path: '/development', label: 'Development', icon: '⌨️', color: 'teal' },
-    { path: '/uiux', label: 'UI/UX Design', icon: '✨', color: 'purple' },
-    { path: '/design', label: 'Graphic Design', icon: '🎨', color: 'primary' },
-    { path: '/photography', label: 'Photography', icon: '📸', color: 'terra' },
+    { path: '/development', label: 'Development', Icon: Monitor, color: 'dev' },
+    { path: '/uiux', label: 'UI/UX Design', Icon: Figma, color: 'uiux' },
+    { path: '/design', label: 'Graphic Design', Icon: PenTool, color: 'design' },
+    { path: '/photography', label: 'Photography', Icon: Camera, color: 'photo' },
   ]
 
   useEffect(() => {
@@ -58,8 +59,8 @@ const Navbar = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex items-center space-x-3 cursor-pointer group"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center font-bold text-neutral-950 shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all duration-300 group-hover:scale-105">
-                <span className="text-xl font-display">P</span>
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-accent-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-accent-500/20 group-hover:shadow-accent-500/40 transition-all duration-300 group-hover:scale-105">
+                <Code2 className="w-6 h-6 text-white" strokeWidth={2.5} />
               </div>
               <span className="text-xl font-display font-bold text-white hidden sm:block">
                 Portfolio
@@ -85,7 +86,7 @@ const Navbar = () => {
                   {isActive(item.path) && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-accent-500/10 rounded-lg border border-primary-500/30"
+                      className="absolute inset-0 bg-gradient-to-r from-accent-500/10 to-secondary-500/10 rounded-lg border border-accent-500/30"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -110,18 +111,14 @@ const Navbar = () => {
                 }`}
               >
                 Portfolio
-                <svg
+                <ChevronDown
                   className={`w-4 h-4 transition-transform duration-300 ${isPortfolioOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                  strokeWidth={2}
+                />
                 {portfolioItems.some(item => isActive(item.path)) && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-accent-500/10 rounded-lg border border-primary-500/30"
+                    className="absolute inset-0 bg-gradient-to-r from-accent-500/10 to-secondary-500/10 rounded-lg border border-accent-500/30"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -136,23 +133,28 @@ const Navbar = () => {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full mt-2 right-0 w-64 bg-neutral-900/95 backdrop-blur-xl border border-neutral-800/50 rounded-xl shadow-2xl shadow-neutral-950/50 overflow-hidden"
                   >
-                    {portfolioItems.map((item, index) => (
-                      <Link key={item.path} to={item.path}>
-                        <motion.div
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className={`px-4 py-3 flex items-center gap-3 transition-all duration-300 ${
-                            isActive(item.path)
-                              ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/10 text-white'
-                              : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
-                          }`}
-                        >
-                          <span className="text-2xl">{item.icon}</span>
-                          <span className="font-medium">{item.label}</span>
-                        </motion.div>
-                      </Link>
-                    ))}
+                    {portfolioItems.map((item, index) => {
+                      const IconComponent = item.Icon
+                      return (
+                        <Link key={item.path} to={item.path}>
+                          <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                            className={`px-4 py-3 flex items-center gap-3 transition-all duration-300 ${
+                              isActive(item.path)
+                                ? `bg-gradient-to-r from-${item.color}-500/20 to-${item.color}-500/10 text-white border-l-2 border-${item.color}-500`
+                                : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
+                            }`}
+                          >
+                            <div className={`w-9 h-9 flex items-center justify-center rounded-lg bg-${item.color}-500/10 border border-${item.color}-500/30`}>
+                              <IconComponent className={`w-5 h-5 text-${item.color}-400`} strokeWidth={1.5} />
+                            </div>
+                            <span className="font-medium">{item.label}</span>
+                          </motion.div>
+                        </Link>
+                      )
+                    })}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -165,7 +167,7 @@ const Navbar = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="hidden lg:block px-6 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-neutral-950 font-bold rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300 hover:scale-105"
+              className="hidden lg:block px-6 py-2.5 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-accent-500/50 transition-all duration-300 hover:scale-105"
             >
               Let's Talk
             </motion.button>
@@ -215,7 +217,7 @@ const Navbar = () => {
                   <div
                     className={`block w-full text-left px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
                       isActive(item.path)
-                        ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/10 text-white border border-primary-500/30'
+                        ? 'bg-gradient-to-r from-accent-500/20 to-secondary-500/10 text-white border border-accent-500/30'
                         : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
                     }`}
                   >
@@ -249,27 +251,32 @@ const Navbar = () => {
                       exit={{ opacity: 0, height: 0 }}
                       className="mt-2 ml-4 space-y-2"
                     >
-                      {portfolioItems.map((item) => (
-                        <Link key={item.path} to={item.path}>
-                          <div
-                            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 ${
-                              isActive(item.path)
-                                ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/10 text-white border border-primary-500/30'
-                                : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
-                            }`}
-                          >
-                            <span className="text-xl">{item.icon}</span>
-                            <span className="text-sm">{item.label}</span>
-                          </div>
-                        </Link>
-                      ))}
+                      {portfolioItems.map((item) => {
+                        const IconComponent = item.Icon
+                        return (
+                          <Link key={item.path} to={item.path}>
+                            <div
+                              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                                isActive(item.path)
+                                  ? `bg-gradient-to-r from-${item.color}-500/20 to-${item.color}-500/10 text-white border border-${item.color}-500/30`
+                                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
+                              }`}
+                            >
+                              <div className={`w-8 h-8 flex items-center justify-center rounded-lg bg-${item.color}-500/10 border border-${item.color}-500/30`}>
+                                <IconComponent className={`w-4 h-4 text-${item.color}-400`} strokeWidth={1.5} />
+                              </div>
+                              <span className="text-sm">{item.label}</span>
+                            </div>
+                          </Link>
+                        )
+                      })}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
               <Link to="/contact">
-                <div className="w-full px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-neutral-950 font-bold rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300 text-center">
+                <div className="w-full px-4 py-3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-accent-500/50 transition-all duration-300 text-center">
                   Let's Talk
                 </div>
               </Link>
