@@ -67,82 +67,184 @@ const HomeNew = () => {
   // Skills data (modern design with lucide icons)
   const skillCategories = [
     {
-      title: 'Development',
-      Icon: Code2,
-      color: 'dev',
-      skills: ['React & Next.js', 'TypeScript', 'Node.js', 'Python', 'AWS', 'Docker'],
-    },
-    {
-      title: 'Design',
+      title: 'Frontend & Design',
       Icon: Palette,
+      color: 'dev',
+      skills: ['React', 'TypeScript', 'Tailwind CSS', 'Figma', 'Adobe Photoshop', 'Adobe Illustrator', 'UI/UX Design', 'WordPress'],
+    },
+    {
+      title: 'Backend Development',
+      Icon: Code2,
       color: 'uiux',
-      skills: ['Figma', 'Adobe XD', 'Sketch', 'Prototyping', 'Design Systems', 'User Research'],
+      skills: ['Python', 'Java', 'Node.js', 'PostgreSQL', 'MongoDB', 'Docker', 'REST APIs', 'Git/GitHub'],
     },
     {
-      title: 'Creative',
-      Icon: Sparkles,
-      color: 'design',
-      skills: ['Photoshop', 'Illustrator', 'After Effects', 'Branding', 'Typography'],
-    },
-    {
-      title: 'Tools',
+      title: 'Project Management',
       Icon: Wrench,
+      color: 'design',
+      skills: ['Agile/Scrum', 'Jira', 'Azure DevOps', 'Trello', 'Team Leadership', 'Resource Planning', 'SEO Strategy', 'Analytics'],
+    },
+    {
+      title: 'Tools & Technologies',
+      Icon: Sparkles,
       color: 'photo',
-      skills: ['Git', 'VS Code', 'Jira', 'Notion', 'Postman', 'Analytics'],
+      skills: ['Microsoft Office', 'Power BI', 'LaTeX/Overleaf', 'Data Analysis', 'Digital Marketing', 'Content Strategy', 'AI/Prompt Engineering', 'Cloud Services'],
     },
   ]
 
   // Experience data (modern timeline design)
   const experiences = [
     {
-      title: 'Senior Full Stack Developer',
-      company: 'TechCorp Inc.',
-      location: 'San Francisco, CA',
-      period: '2022 - Present',
-      type: 'Full-time',
-      Icon: Briefcase,
-      color: 'dev',
-      description: 'Leading development of scalable web applications and mentoring junior developers',
-      achievements: ['Architected microservices infrastructure', 'Improved performance by 40%', 'Led team of 5 developers']
-    },
-    {
-      title: 'UI/UX Designer',
-      company: 'DesignLab',
-      location: 'New York, NY',
-      period: '2020 - 2022',
-      type: 'Full-time',
-      Icon: Palette,
-      color: 'uiux',
-      description: 'Crafted user-centered designs for enterprise SaaS products',
-      achievements: ['Redesigned core product UI', 'Increased user engagement by 60%', 'Built design system']
-    },
-    {
-      title: 'Freelance Developer',
-      company: 'Self-Employed',
-      location: 'Remote',
-      period: '2018 - 2020',
-      type: 'Freelance',
+      title: 'VP – Marketing',
+      company: 'HackConcordia',
+      location: 'Montreal, QC, Canada',
+      period: 'Present',
+      type: 'Volunteer',
       Icon: Rocket,
+      color: 'dev',
+      description: 'Leading marketing initiatives for HackConcordia, organizing large-scale hackathons and tech events to foster the student developer community.',
+      achievements: [
+        'Managed social media presence and executed strategic marketing campaigns.',
+        'Coordinated with sponsors and partners to secure funding and support for events.',
+        'Increased student engagement and participation in hackathons through targeted outreach.',
+      ],
+    },
+    {
+      title: 'Graduate Teaching Assistant',
+      company: 'SOEN 6431, Concordia University',
+      location: 'Montreal, QC, Canada',
+      period: 'Sep 2023 - Present',
+      type: 'Part-time',
+      Icon: GraduationCap,
+      color: 'uiux',
+      description: 'Assisting in the instruction of SOEN 6431, providing guidance to students on software engineering concepts and methodologies.',
+      achievements: [
+        'Facilitated learning for graduate students in software engineering principles.',
+        'Provided detailed feedback and grading for assignments and projects.',
+        'Mentored students on complex software architecture and design patterns.',
+      ],
+    },
+    {
+      title: 'Director',
+      company: 'Graduate Students\' Association',
+      location: 'Montreal, QC, Canada',
+      period: 'Recent',
+      type: 'Leadership',
+      Icon: Briefcase,
       color: 'design',
-      description: 'Delivered custom web solutions for diverse clients across industries',
-      achievements: ['Completed 30+ projects', 'Maintained 5-star rating', 'Built recurring client base']
+      description: 'Serving as Director for the Graduate Students\' Association, representing graduate student interests and organizing community events.',
+      achievements: [
+        'Advocated for graduate student needs and concerns.',
+        'Organized networking events and professional development workshops.',
+        'Collaborated with university administration on policy matters.',
+      ],
+    },
+    {
+      title: 'Student Facilitator',
+      company: 'Homeroom, Dean of Students Office',
+      location: 'Montreal, QC, Canada',
+      period: 'Recent',
+      type: 'Part-time',
+      Icon: Palette,
+      color: 'photo',
+      description: 'Facilitated student programs and initiatives through the Dean of Students Office.',
+      achievements: [
+        'Supported new student orientation and integration programs.',
+        'Coordinated student engagement activities.',
+        'Provided peer mentorship and guidance to undergraduate students.',
+      ],
+    },
+    {
+      title: 'Marketing/Communications',
+      company: 'TEDx Concordia University',
+      location: 'Montreal, QC, Canada',
+      period: 'Recent',
+      type: 'Volunteer',
+      Icon: Sparkles,
+      color: 'dev',
+      description: 'Managed marketing and communications for TEDx Concordia University events.',
+      achievements: [
+        'Developed and executed comprehensive marketing strategies.',
+        'Created engaging content for social media and promotional materials.',
+        'Increased event attendance and community engagement.',
+      ],
+    },
+    {
+      title: 'Web Developer & UI/UX Designer',
+      company: 'Zavy Technologies Sdn Bhd',
+      location: 'Malaysia',
+      period: '2022',
+      type: 'Full-time',
+      Icon: Monitor,
+      color: 'uiux',
+      description: 'Developed and maintained web applications, ensuring high performance and responsiveness across various devices and platforms.',
+      achievements: [
+        'Collaborated with cross-functional teams to deliver robust software solutions.',
+        'Implemented responsive designs and optimized user experience for web platforms.',
+        'Participated in the full software development lifecycle from concept to deployment.',
+      ],
+    },
+    {
+      title: 'General Secretary',
+      company: 'Bangladeshi Student Association',
+      location: 'Malaysia',
+      period: 'Past',
+      type: 'Leadership',
+      Icon: Briefcase,
+      color: 'design',
+      description: 'Led administrative operations for the Bangladeshi Student Association.',
+      achievements: [
+        'Coordinated cultural events and community gatherings.',
+        'Managed organizational communications and documentation.',
+        'Strengthened connections within the Bangladeshi student community.',
+      ],
+    },
+    {
+      title: 'Senior Member',
+      company: 'Connecting Youth Foundation',
+      location: 'Bangladesh',
+      period: 'Past',
+      type: 'Volunteer',
+      Icon: Rocket,
+      color: 'photo',
+      description: 'Contributed to youth development initiatives and community outreach programs.',
+      achievements: [
+        'Organized workshops and training sessions for youth development.',
+        'Participated in community service projects.',
+        'Mentored younger members in leadership and skill development.',
+      ],
+    },
+    {
+      title: 'Member',
+      company: 'Bangladesh Scouts',
+      location: 'Bangladesh',
+      period: 'Past',
+      type: 'Volunteer',
+      Icon: Sparkles,
+      color: 'dev',
+      description: 'Active member of Bangladesh Scouts, participating in community service and leadership activities.',
+      achievements: [
+        'Participated in community service and outreach programs.',
+        'Developed leadership and teamwork skills.',
+        'Engaged in environmental and social initiatives.',
+      ],
     },
   ]
 
   const education = [
     {
-      degree: 'B.S. Computer Science',
-      institution: 'University of Technology',
-      period: '2013 - 2017',
+      degree: 'MEng in Software Engineering',
+      institution: 'Concordia University',
+      period: 'Sep 2023 - Present',
       Icon: GraduationCap,
-      details: 'Graduated with Honors - GPA 3.8/4.0'
+      details: 'Focusing on advanced software architecture, design patterns, and cloud computing.'
     },
     {
-      degree: 'UX Design Certificate',
-      institution: 'Design Institute',
-      period: '2019',
+      degree: 'BSc in Software Engineering with Multimedia',
+      institution: 'Limkokwing University',
+      period: 'Aug 2019 – July 2022',
       Icon: ScrollText,
-      details: 'Professional certification in User Experience Design'
+      details: 'Graduated with First Class Honours. Final year project on "Smart Attendance System using Face Recognition".'
     },
   ]
 
@@ -178,15 +280,15 @@ const HomeNew = () => {
 
             {/* Main Heading */}
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-display font-bold mb-6">
-              <span className="block text-white mb-2">Creative Developer</span>
+              <span className="block text-white mb-2">Mahimur Rahman Khan</span>
               <span className="block bg-gradient-to-r from-primary-400 via-accent-400 to-primary-500 bg-clip-text text-transparent">
-                & Designer
+                Software Engineer
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl sm:text-2xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Crafting digital experiences through code, design, and creativity
+              Specialized in full-stack development, UI/UX design, and data-driven decision making.
             </p>
 
             {/* CTA Buttons */}
@@ -631,7 +733,7 @@ const HomeNew = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
             <a
-              href="mailto:hello@example.com"
+              href="mailto:mahimrk.a@gmail.com"
               className="group relative px-8 py-4 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent-500/20 hover:scale-105"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-accent-600 to-accent-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -641,7 +743,7 @@ const HomeNew = () => {
               </span>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/mahimurrahman-khan"
               target="_blank"
               rel="noopener noreferrer"
               className="group px-8 py-4 bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/50 text-white font-bold rounded-xl hover:bg-neutral-800/80 hover:border-neutral-600/50 transition-all duration-300 hover:scale-105"
@@ -666,10 +768,9 @@ const HomeNew = () => {
             </h3>
             <div className="flex items-center justify-center gap-4">
               {[
-                { Icon: Linkedin, label: 'LinkedIn', href: '#', color: 'accent' },
-                { Icon: Github, label: 'GitHub', href: '#', color: 'secondary' },
-                { Icon: Twitter, label: 'Twitter', href: '#', color: 'accent' },
-                { Icon: Instagram, label: 'Instagram', href: '#', color: 'secondary' },
+                { Icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/mahimurrahman-khan', color: 'accent' },
+                { Icon: Github, label: 'GitHub', href: 'https://github.com/mahimrahman', color: 'secondary' },
+                { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/snazzy_memories/', color: 'secondary' },
               ].map((social, index) => {
                 const IconComponent = social.Icon
                 return (
@@ -707,6 +808,7 @@ const HomeNew = () => {
             className="grid md:grid-cols-2 gap-6"
           >
             {/* Email Card */}
+            {/* Email Card */}
             <div className="group relative">
               <div className="absolute inset-0 bg-gradient-to-br from-accent-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
               <div className="relative p-8 bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 rounded-2xl hover:border-neutral-700/50 transition-all duration-300">
@@ -715,8 +817,8 @@ const HomeNew = () => {
                 </div>
                 <h3 className="text-xl font-display font-bold text-white mb-2">Email</h3>
                 <p className="text-neutral-400 mb-4">Drop me a line anytime</p>
-                <a href="mailto:hello@example.com" className="text-accent-400 hover:text-accent-300 transition-colors font-medium">
-                  hello@example.com
+                <a href="mailto:mahimrk.a@gmail.com" className="text-accent-400 hover:text-accent-300 transition-colors font-medium">
+                  mahimrk.a@gmail.com
                 </a>
               </div>
             </div>
@@ -730,8 +832,8 @@ const HomeNew = () => {
                 </div>
                 <h3 className="text-xl font-display font-bold text-white mb-2">LinkedIn</h3>
                 <p className="text-neutral-400 mb-4">Let's connect professionally</p>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-secondary-400 hover:text-secondary-300 transition-colors font-medium">
-                  /in/yourprofile
+                <a href="https://www.linkedin.com/in/mahimurrahman-khan" target="_blank" rel="noopener noreferrer" className="text-secondary-400 hover:text-secondary-300 transition-colors font-medium">
+                  /in/mahimurrahman-khan
                 </a>
               </div>
             </div>
@@ -744,27 +846,27 @@ const HomeNew = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Brand */}
+            {/* Brand */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-accent-500 to-secondary-500 rounded-lg flex items-center justify-center">
                 <Code2 className="w-6 h-6 text-white" strokeWidth={2} />
               </div>
               <div>
-                <p className="text-white font-display font-bold text-lg">Your Name</p>
-                <p className="text-neutral-500 text-xs">Full Stack Developer & Designer</p>
+                <p className="text-white font-display font-bold text-lg">Mahimur Rahman Khan</p>
+                <p className="text-neutral-500 text-xs">Software Engineer & Designer</p>
               </div>
             </div>
 
             {/* Copyright */}
             <div className="text-neutral-500 text-sm text-center md:text-left">
-              <p>© {new Date().getFullYear()} All rights reserved.</p>
+              <p>© {new Date().getFullYear()} Mahimur Rahman Khan. All rights reserved.</p>
             </div>
 
             {/* Quick Social Links */}
             <div className="flex items-center gap-3">
               {[
-                { Icon: Github, href: '#', label: 'GitHub' },
-                { Icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { Icon: Twitter, href: '#', label: 'Twitter' },
+                { Icon: Github, href: 'https://github.com/mahimrahman', label: 'GitHub' },
+                { Icon: Linkedin, href: 'https://www.linkedin.com/in/mahimurrahman-khan', label: 'LinkedIn' },
               ].map((social, index) => {
                 const IconComponent = social.Icon
                 return (

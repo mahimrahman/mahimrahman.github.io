@@ -10,16 +10,16 @@ const Navbar = () => {
   const location = useLocation()
 
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/experience', label: 'Experience' },
-    { path: '/contact', label: 'Contact' },
+    { path: '#home', label: 'Home' },
+    { path: '#experience', label: 'Experience' },
+    { path: '#contact', label: 'Contact' },
   ]
 
   const portfolioItems = [
-    { path: '/development', label: 'Development', Icon: Monitor, color: 'dev' },
-    { path: '/uiux', label: 'UI/UX Design', Icon: Figma, color: 'uiux' },
-    { path: '/design', label: 'Graphic Design', Icon: PenTool, color: 'design' },
-    { path: '/photography', label: 'Photography', Icon: Camera, color: 'photo' },
+    { path: '#portfolio', label: 'Development', Icon: Monitor, color: 'dev' },
+    { path: '#portfolio', label: 'UI/UX Design', Icon: Figma, color: 'uiux' },
+    { path: '#portfolio', label: 'Graphic Design', Icon: PenTool, color: 'design' },
+    { path: '#portfolio', label: 'Photography', Icon: Camera, color: 'photo' },
   ]
 
   useEffect(() => {
@@ -36,7 +36,30 @@ const Navbar = () => {
     setIsPortfolioOpen(false)
   }, [location])
 
-  const isActive = (path: string) => location.pathname === path
+  const isActive = (path: string) => {
+    if (path.startsWith('#')) {
+      return location.hash === path
+    }
+    return location.pathname === path
+  }
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (path.startsWith('#')) {
+      e.preventDefault()
+      const element = document.querySelector(path)
+      if (element) {
+        const offset = 80
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - offset
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+        // Update URL hash without jumping
+        window.history.pushState(null, '', path)
+      }
+    }
+  }
 
   return (
     <motion.nav
@@ -52,7 +75,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/">
+          <a href="#home" onClick={(e) => handleNavClick(e, '#home')}>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -63,15 +86,19 @@ const Navbar = () => {
                 <Code2 className="w-6 h-6 text-white" strokeWidth={2.5} />
               </div>
               <span className="text-xl font-display font-bold text-white hidden sm:block">
-                Portfolio
+                Mahimur
               </span>
             </motion.div>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item, index) => (
-              <Link key={item.path} to={item.path}>
+              <a 
+                key={item.path} 
+                href={item.path}
+                onClick={(e) => handleNavClick(e, item.path)}
+              >
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -91,7 +118,7 @@ const Navbar = () => {
                     />
                   )}
                 </motion.div>
-              </Link>
+              </a>
             ))}
 
             {/* Portfolio Dropdown */}

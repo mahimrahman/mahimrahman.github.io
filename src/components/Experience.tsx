@@ -8,6 +8,20 @@ const Experience = () => {
 
   const experiences = [
     {
+      type: 'education',
+      role: 'MEng in Software Engineering',
+      company: 'Concordia University',
+      period: 'Sep 2023 - Present',
+      location: 'Montreal, QC',
+      description: 'Pursuing Master of Engineering in Software Engineering, focusing on advanced software architecture, design patterns, and cloud computing.',
+      achievements: [
+        'Specializing in Software Architecture and Design.',
+        'Active member of the Graduate Students Association.',
+        'Conducting research on modern software engineering methodologies.',
+      ],
+    },
+    {
+      type: 'work',
       role: 'Graduate Teaching Assistant',
       company: 'Concordia University',
       period: 'Sep 2023 - Present',
@@ -20,6 +34,20 @@ const Experience = () => {
       ],
     },
     {
+      type: 'work',
+      role: 'VP – Marketing',
+      company: 'HackConcordia',
+      period: 'Present',
+      location: 'Montreal, QC',
+      description: 'Leading marketing initiatives for HackConcordia, organizing large-scale hackathons and tech events to foster the student developer community.',
+      achievements: [
+        'Managed social media presence and executed strategic marketing campaigns.',
+        'Coordinated with sponsors and partners to secure funding and support for events.',
+        'Increased student engagement and participation in hackathons through targeted outreach.',
+      ],
+    },
+    {
+      type: 'work',
       role: 'Web Developer',
       company: 'Zavy Technologies Sdn Bhd',
       period: '2022',
@@ -32,15 +60,16 @@ const Experience = () => {
       ],
     },
     {
-      role: 'VP – Marketing',
-      company: 'HackConcordia',
-      period: 'Present',
-      location: 'Montreal, QC',
-      description: 'Leading marketing initiatives for HackConcordia, organizing large-scale hackathons and tech events to foster the student developer community.',
+      type: 'education',
+      role: 'BSc in Software Engineering with Multimedia',
+      company: 'Limkokwing University',
+      period: 'Aug 2019 – July 2022',
+      location: 'Malaysia',
+      description: 'Completed Bachelor degree with a focus on multimedia applications and software engineering principles.',
       achievements: [
-        'Managed social media presence and executed strategic marketing campaigns.',
-        'Coordinated with sponsors and partners to secure funding and support for events.',
-        'Increased student engagement and participation in hackathons through targeted outreach.',
+        'Graduated with First Class Honours.',
+        'Developed strong foundation in full-stack development and multimedia design.',
+        'Completed final year project on "Smart Attendance System using Face Recognition".',
       ],
     },
   ]
@@ -63,9 +92,16 @@ const Experience = () => {
             My Journey
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
-            Professional
-            <span className="block text-gradient">Experience</span>
-          </h2>
+            Experience &
+            <span className="block text-gradient">Education</span>
+          </h2>           </svg>
+                        ) : (
+                          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
         </motion.div>
 
