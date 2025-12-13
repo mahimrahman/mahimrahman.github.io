@@ -4,7 +4,7 @@ import ParticlesBackground from './ParticlesBackground'
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0)
-  const roles = ['Software Engineer', 'UI/UX Designer', 'Creative Developer', 'Problem Solver']
+  const roles = ['Software Engineer', 'Web Developer', 'UI/UX Designer', 'Data Analyst']
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,7 +78,7 @@ const Hero = () => {
           >
             <span className="block text-white mb-2">Hi, I'm</span>
             <span className="block text-gradient glow-text">
-              Your Name Here
+              Mahimur Rahman Khan
             </span>
           </motion.h1>
 

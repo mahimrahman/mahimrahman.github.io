@@ -7,10 +7,10 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   const stats = [
-    { number: '100+', label: 'Projects Completed' },
-    { number: '5+', label: 'Years Experience' },
-    { number: '50+', label: 'Happy Clients' },
-    { number: '20+', label: 'Technologies Mastered' },
+    { number: '12+', label: 'Projects Completed' },
+    { number: '3+', label: 'Years Experience' },
+    { number: '4+', label: 'Domains of Expertise' },
+    { number: '15+', label: 'Technologies Mastered' },
   ]
 
   return (
@@ -69,7 +69,7 @@ const About = () => {
                 }}
                 className="absolute -right-6 top-1/4 glass px-6 py-4 rounded-xl shadow-xl"
               >
-                <div className="text-3xl font-bold text-gradient">5+</div>
+                <div className="text-3xl font-bold text-gradient">3+</div>
                 <div className="text-sm text-slate-400">Years Exp.</div>
               </motion.div>
             </div>
@@ -83,20 +83,21 @@ const About = () => {
             className="space-y-6"
           >
             <h3 className="text-3xl font-display font-bold text-white">
-              Full-Stack Developer & {' '}
-              <span className="text-gradient">Creative Problem Solver</span>
+              Software Engineer & {' '}
+              <span className="text-gradient">Full-Stack Developer</span>
             </h3>
 
             <p className="text-lg text-slate-400 leading-relaxed">
-              With over 5 years of hands-on experience in software development, I specialize in
-              building scalable web applications and delivering innovative digital solutions.
-              My approach combines clean code architecture with exceptional user experience design.
+              Software Engineering graduate with a strong foundation in IT solutions, project
+              management, and data analysis. I am driven to transform complex challenges into
+              elegant solutions through innovative thinking and continuous learning.
             </p>
 
             <p className="text-lg text-slate-400 leading-relaxed">
-              I thrive in transforming complex requirements into elegant, efficient solutions.
-              From front-end interfaces to robust back-end systems, I bring a comprehensive
-              understanding of the full development lifecycle and modern web technologies.
+              Specialized in full-stack development, UI/UX design, and data-driven decision
+              making. I am passionate about creating impactful digital experiences and committed
+              to collaborative excellence, bringing teams together to deliver solutions that
+              drive real-world impact.
             </p>
 
             {/* Stats Grid */}

@@ -13,10 +13,10 @@ const Footer = () => {
   ]
 
   const socialLinks = [
-    { name: 'GitHub', icon: 'G', href: '#' },
-    { name: 'LinkedIn', icon: 'L', href: '#' },
-    { name: 'Twitter', icon: 'T', href: '#' },
-    { name: 'Dribbble', icon: 'D', href: '#' },
+    { name: 'GitHub', icon: 'G', href: 'https://github.com/mahimrahman' },
+    { name: 'LinkedIn', icon: 'L', href: 'https://www.linkedin.com/in/mahimurrahman-khan' },
+    { name: 'Behance', icon: 'B', href: 'https://www.behance.net/mahimrahman' },
+    { name: 'Instagram', icon: 'I', href: 'https://www.instagram.com/snazzy_memories/' },
   ]
 
   return (
@@ -31,9 +31,9 @@ const Footer = () => {
           <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center font-bold text-white shadow-lg shadow-primary-500/50">
-                <span className="text-xl font-display">P</span>
+                <span className="text-xl font-display">M</span>
               </div>
-              <span className="text-xl font-display font-bold text-white">Portfolio</span>
+              <span className="text-xl font-display font-bold text-white">Mahimur</span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">
               Crafting exceptional digital experiences through innovative design and cutting-edge technology.
