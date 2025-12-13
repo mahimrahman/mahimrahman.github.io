@@ -1,57 +1,41 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('home')
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(false)
+  const location = useLocation()
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'portfolio', label: 'Portfolio' },
-    { id: 'contact', label: 'Contact' },
+    { path: '/', label: 'Home' },
+    { path: '/experience', label: 'Experience' },
+    { path: '/contact', label: 'Contact' },
+  ]
+
+  const portfolioItems = [
+    { path: '/development', label: 'Development', icon: '⌨️', color: 'teal' },
+    { path: '/uiux', label: 'UI/UX Design', icon: '✨', color: 'purple' },
+    { path: '/design', label: 'Graphic Design', icon: '🎨', color: 'primary' },
+    { path: '/photography', label: 'Photography', icon: '📸', color: 'terra' },
   ]
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
-
-      const sections = navItems.map(item => item.id)
-      const current = sections.find(section => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-
-      if (current) {
-        setActiveSection(current)
-      }
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      const offset = 80
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      })
-    }
+  useEffect(() => {
     setIsMobileMenuOpen(false)
-  }
+    setIsPortfolioOpen(false)
+  }, [location])
+
+  const isActive = (path: string) => location.pathname === path
 
   return (
     <motion.nav
@@ -60,65 +44,132 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-slate-900/80 backdrop-blur-xl shadow-lg shadow-primary-500/10 border-b border-white/5'
+          ? 'bg-neutral-900/80 backdrop-blur-xl shadow-lg shadow-neutral-950/50 border-b border-neutral-800/50'
           : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center space-x-3 cursor-pointer group"
-            onClick={() => scrollToSection('home')}
-          >
-            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center font-bold text-white shadow-lg shadow-primary-500/50 group-hover:shadow-accent-500/50 transition-all duration-300">
-              <span className="text-xl font-display">P</span>
-            </div>
-            <span className="text-xl font-display font-bold text-white hidden sm:block">
-              Portfolio
-            </span>
-          </motion.div>
+          <Link to="/">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="flex items-center space-x-3 cursor-pointer group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center font-bold text-neutral-950 shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all duration-300 group-hover:scale-105">
+                <span className="text-xl font-display">P</span>
+              </div>
+              <span className="text-xl font-display font-bold text-white hidden sm:block">
+                Portfolio
+              </span>
+            </motion.div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item, index) => (
+              <Link key={item.path} to={item.path}>
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  className={`relative px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    isActive(item.path)
+                      ? 'text-white'
+                      : 'text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                  {isActive(item.path) && (
+                    <motion.div
+                      layoutId="activeNav"
+                      className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-accent-500/10 rounded-lg border border-primary-500/30"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </motion.div>
+              </Link>
+            ))}
+
+            {/* Portfolio Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setIsPortfolioOpen(true)}
+              onMouseLeave={() => setIsPortfolioOpen(false)}
+            >
               <motion.button
-                key={item.id}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                onClick={() => scrollToSection(item.id)}
-                className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === item.id
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className={`relative px-5 py-2 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 ${
+                  portfolioItems.some(item => isActive(item.path))
                     ? 'text-white'
-                    : 'text-slate-400 hover:text-white'
+                    : 'text-neutral-400 hover:text-white'
                 }`}
               >
-                {item.label}
-                {activeSection === item.id && (
+                Portfolio
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${isPortfolioOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+                {portfolioItems.some(item => isActive(item.path)) && (
                   <motion.div
-                    layoutId="activeSection"
-                    className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-accent-500/20 rounded-lg border border-primary-500/30"
+                    layoutId="activeNav"
+                    className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-accent-500/10 rounded-lg border border-primary-500/30"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
               </motion.button>
-            ))}
+
+              <AnimatePresence>
+                {isPortfolioOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full mt-2 right-0 w-64 bg-neutral-900/95 backdrop-blur-xl border border-neutral-800/50 rounded-xl shadow-2xl shadow-neutral-950/50 overflow-hidden"
+                  >
+                    {portfolioItems.map((item, index) => (
+                      <Link key={item.path} to={item.path}>
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          className={`px-4 py-3 flex items-center gap-3 transition-all duration-300 ${
+                            isActive(item.path)
+                              ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/10 text-white'
+                              : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
+                          }`}
+                        >
+                          <span className="text-2xl">{item.icon}</span>
+                          <span className="font-medium">{item.label}</span>
+                        </motion.div>
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* CTA Button */}
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            onClick={() => scrollToSection('contact')}
-            className="hidden lg:block px-6 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300 hover:scale-105"
-          >
-            Hire Me
-          </motion.button>
+          <Link to="/contact">
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="hidden lg:block px-6 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-neutral-950 font-bold rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300 hover:scale-105"
+            >
+              Let's Talk
+            </motion.button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -156,28 +207,72 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-slate-900/95 backdrop-blur-xl border-t border-white/5"
+            className="lg:hidden bg-neutral-900/95 backdrop-blur-xl border-t border-neutral-800/50"
           >
             <div className="px-4 py-6 space-y-3">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
-                    activeSection === item.id
-                      ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/20 text-white border border-primary-500/30'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {item.label}
-                </button>
+                <Link key={item.path} to={item.path}>
+                  <div
+                    className={`block w-full text-left px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                      isActive(item.path)
+                        ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/10 text-white border border-primary-500/30'
+                        : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
+                    }`}
+                  >
+                    {item.label}
+                  </div>
+                </Link>
               ))}
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="w-full px-4 py-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300"
-              >
-                Hire Me
-              </button>
+
+              {/* Mobile Portfolio Section */}
+              <div>
+                <button
+                  onClick={() => setIsPortfolioOpen(!isPortfolioOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg font-medium text-neutral-400 hover:text-white hover:bg-neutral-800/50 transition-all duration-300"
+                >
+                  Portfolio
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-300 ${isPortfolioOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                <AnimatePresence>
+                  {isPortfolioOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-2 ml-4 space-y-2"
+                    >
+                      {portfolioItems.map((item) => (
+                        <Link key={item.path} to={item.path}>
+                          <div
+                            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                              isActive(item.path)
+                                ? 'bg-gradient-to-r from-primary-500/20 to-accent-500/10 text-white border border-primary-500/30'
+                                : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
+                            }`}
+                          >
+                            <span className="text-xl">{item.icon}</span>
+                            <span className="text-sm">{item.label}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <Link to="/contact">
+                <div className="w-full px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-neutral-950 font-bold rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300 text-center">
+                  Let's Talk
+                </div>
+              </Link>
             </div>
           </motion.div>
         )}
