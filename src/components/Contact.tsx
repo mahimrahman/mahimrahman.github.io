@@ -40,8 +40,8 @@ const Contact = () => {
         </svg>
       ),
       title: 'Email',
-      value: 'hello@example.com',
-      link: 'mailto:hello@example.com',
+      value: 'contact@yourportfolio.com',
+      link: 'mailto:contact@yourportfolio.com',
     },
     {
       icon: (
@@ -50,8 +50,8 @@ const Contact = () => {
         </svg>
       ),
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: 'Available upon request',
+      link: '#',
     },
     {
       icon: (
@@ -61,7 +61,7 @@ const Contact = () => {
         </svg>
       ),
       title: 'Location',
-      value: 'San Francisco, CA',
+      value: 'United States',
       link: '#',
     },
   ]
@@ -89,7 +89,7 @@ const Contact = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
           <p className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+            Have a project in mind or looking for a skilled developer? I'm always interested in discussing new opportunities and exciting projects.
           </p>
         </motion.div>
 
@@ -102,10 +102,10 @@ const Contact = () => {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-white mb-4">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">Let's Connect</h3>
               <p className="text-slate-400 leading-relaxed">
-                Feel free to reach out through any of these channels. I'm always open to discussing
-                new projects, creative ideas, or opportunities to be part of your vision.
+                Whether you have a project idea, a job opportunity, or just want to connect,
+                I'm always happy to hear from you. Drop me a message and I'll get back to you as soon as possible.
               </p>
             </div>
 

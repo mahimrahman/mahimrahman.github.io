@@ -12,11 +12,11 @@ const Skills = () => {
       icon: '🎨',
       color: 'from-blue-500 to-cyan-500',
       skills: [
-        { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'Next.js', level: 85 },
-        { name: 'Tailwind CSS', level: 92 },
-        { name: 'Framer Motion', level: 88 },
+        { name: 'React.js', level: 95 },
+        { name: 'TypeScript', level: 92 },
+        { name: 'Next.js', level: 90 },
+        { name: 'Tailwind CSS', level: 94 },
+        { name: 'Vue.js', level: 85 },
       ],
     },
     {
@@ -24,23 +24,23 @@ const Skills = () => {
       icon: '⚙️',
       color: 'from-green-500 to-emerald-500',
       skills: [
-        { name: 'Node.js', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'PostgreSQL', level: 80 },
-        { name: 'MongoDB', level: 82 },
-        { name: 'REST APIs', level: 93 },
+        { name: 'Node.js', level: 93 },
+        { name: 'Express.js', level: 91 },
+        { name: 'Python/Django', level: 87 },
+        { name: 'PostgreSQL', level: 89 },
+        { name: 'MongoDB', level: 88 },
       ],
     },
     {
-      title: 'Design & Tools',
+      title: 'DevOps & Tools',
       icon: '🎯',
       color: 'from-purple-500 to-pink-500',
       skills: [
-        { name: 'Figma', level: 88 },
-        { name: 'Adobe XD', level: 82 },
-        { name: 'Git', level: 93 },
-        { name: 'Docker', level: 78 },
-        { name: 'AWS', level: 75 },
+        { name: 'Git & GitHub', level: 96 },
+        { name: 'Docker', level: 85 },
+        { name: 'AWS/Cloud', level: 82 },
+        { name: 'CI/CD', level: 84 },
+        { name: 'Linux', level: 88 },
       ],
     },
   ]
@@ -124,9 +124,10 @@ const Skills = () => {
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              'React', 'TypeScript', 'Node.js', 'Python', 'Next.js', 'Tailwind',
-              'MongoDB', 'PostgreSQL', 'Docker', 'AWS', 'Figma', 'Git',
-              'Express', 'Redux', 'GraphQL', 'Firebase', 'Vercel', 'Prisma',
+              'React', 'TypeScript', 'Node.js', 'Python', 'Next.js', 'Tailwind CSS',
+              'MongoDB', 'PostgreSQL', 'Docker', 'AWS', 'Git', 'Vue.js',
+              'Express.js', 'Redux', 'GraphQL', 'Firebase', 'Vercel', 'Prisma',
+              'REST APIs', 'WebSockets', 'Jest', 'Webpack', 'Vite', 'Sass',
             ].map((tech, index) => (
               <motion.div
                 key={index}

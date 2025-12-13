@@ -7,10 +7,10 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   const stats = [
-    { number: '50+', label: 'Projects Completed' },
+    { number: '100+', label: 'Projects Completed' },
     { number: '5+', label: 'Years Experience' },
-    { number: '30+', label: 'Happy Clients' },
-    { number: '15+', label: 'Technologies' },
+    { number: '50+', label: 'Happy Clients' },
+    { number: '20+', label: 'Technologies Mastered' },
   ]
 
   return (
@@ -83,20 +83,20 @@ const About = () => {
             className="space-y-6"
           >
             <h3 className="text-3xl font-display font-bold text-white">
-              I'm a passionate{' '}
-              <span className="text-gradient">Software Engineer & Designer</span>
+              Full-Stack Developer & {' '}
+              <span className="text-gradient">Creative Problem Solver</span>
             </h3>
 
             <p className="text-lg text-slate-400 leading-relaxed">
-              With over 5 years of experience in software development and design, I specialize in
-              creating innovative digital solutions that combine technical excellence with
-              exceptional user experience.
+              With over 5 years of hands-on experience in software development, I specialize in
+              building scalable web applications and delivering innovative digital solutions.
+              My approach combines clean code architecture with exceptional user experience design.
             </p>
 
             <p className="text-lg text-slate-400 leading-relaxed">
-              My expertise spans across full-stack development, UI/UX design, and modern web
-              technologies. I'm passionate about building products that not only look great but
-              also solve real-world problems.
+              I thrive in transforming complex requirements into elegant, efficient solutions.
+              From front-end interfaces to robust back-end systems, I bring a comprehensive
+              understanding of the full development lifecycle and modern web technologies.
             </p>
 
             {/* Stats Grid */}
