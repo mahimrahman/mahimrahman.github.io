@@ -52,17 +52,17 @@ const PortfolioModal = ({ isOpen, onClose, children, title }: PortfolioModalProp
 
           {/* Modal */}
           <div className="fixed inset-0 z-50 overflow-y-auto">
-            <div className="min-h-screen px-4 flex items-center justify-center">
+            <div className="min-h-screen px-4 py-8 flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                className="relative w-full max-w-6xl max-h-[90vh] bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-800/50 overflow-hidden"
+                className="relative w-full max-w-5xl max-h-[85vh] bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-800/50 overflow-hidden"
               >
                 {/* Header */}
                 <div className="sticky top-0 z-10 bg-neutral-900/95 backdrop-blur-xl border-b border-neutral-800/50 px-6 py-4 flex items-center justify-between">
-                  <h2 className="text-2xl font-display font-bold text-white">{title}</h2>
+                  <h2 className="text-xl md:text-2xl font-display font-bold text-white">{title}</h2>
                   <button
                     onClick={onClose}
                     className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800/50 transition-colors text-neutral-400 hover:text-white"
@@ -74,7 +74,7 @@ const PortfolioModal = ({ isOpen, onClose, children, title }: PortfolioModalProp
                 </div>
 
                 {/* Content */}
-                <div className="overflow-y-auto max-h-[calc(90vh-73px)] p-6">
+                <div className="overflow-y-auto max-h-[calc(85vh-73px)] p-4 md:p-6">
                   {children}
                 </div>
               </motion.div>

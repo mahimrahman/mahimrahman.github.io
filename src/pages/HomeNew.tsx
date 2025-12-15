@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Code2, Palette, Sparkles, Wrench, CheckCircle2, Briefcase, Rocket, GraduationCap, ScrollText, Calendar, MapPin, ArrowRight, Monitor, Figma, PenTool, Camera, Mail, Linkedin, Github, Twitter, Instagram } from 'lucide-react'
+import { Code2, Palette, Sparkles, Wrench, CheckCircle2, Briefcase, Rocket, GraduationCap, ScrollText, Calendar, MapPin, ArrowRight, Monitor, Figma, PenTool, Camera, Mail, Linkedin, Github, Twitter, Instagram, ChevronLeft, ChevronRight, Grid3x3 } from 'lucide-react'
 import InteractiveBackground from '../components/InteractiveBackground'
 import PortfolioModal from '../components/PortfolioModal'
 import ImageGalleryModal from '../components/ImageGalleryModal'
@@ -13,6 +13,8 @@ const HomeNew = () => {
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [galleryImages, setGalleryImages] = useState<any[]>([])
   const [galleryIndex, setGalleryIndex] = useState(0)
+  const [showAllExperiences, setShowAllExperiences] = useState(false)
+  const [currentExperienceSlide, setCurrentExperienceSlide] = useState(0)
 
   const openGallery = (images: any[], index: number = 0) => {
     setGalleryImages(images)
@@ -309,24 +311,6 @@ const HomeNew = () => {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className="text-sm text-neutral-500">Scroll</span>
-            <svg className="w-6 h-6 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Portfolio Section - Modern Grid Design */}
@@ -525,7 +509,7 @@ const HomeNew = () => {
         </div>
       </section>
 
-      {/* Experience & Education Section - Modern Card Grid Design */}
+      {/* Experience & Education Section - Carousel Design */}
       <section id="experience" className="relative py-32 bg-neutral-950">
         {/* Decorative background elements */}
         <div className="absolute inset-0 overflow-hidden">
@@ -539,7 +523,7 @@ const HomeNew = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -552,83 +536,217 @@ const HomeNew = () => {
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
               Professional Experience
             </h2>
-            <p className="text-lg sm:text-xl text-neutral-400 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-neutral-400 max-w-2xl mx-auto mb-8">
               Highlighting key roles and achievements throughout my career
             </p>
+
+            {/* View Toggle Buttons */}
+            <div className="flex items-center justify-center gap-4">
+              <button
+                onClick={() => setShowAllExperiences(!showAllExperiences)}
+                className="group px-6 py-3 bg-neutral-800/50 hover:bg-neutral-800/80 border border-neutral-700/50 hover:border-accent-500/50 rounded-xl transition-all duration-300 flex items-center gap-2"
+              >
+                <Grid3x3 className="w-5 h-5 text-neutral-400 group-hover:text-accent-400 transition-colors" strokeWidth={1.5} />
+                <span className="text-white font-medium">{showAllExperiences ? 'Show Carousel' : 'Show All'}</span>
+              </button>
+            </div>
           </motion.div>
 
-          {/* Experience Grid */}
+          {/* Experience Content - Conditional Rendering */}
           <div className="mb-24">
-            <div className="grid lg:grid-cols-3 gap-6">
-              {experiences.map((exp, index) => {
-                const IconComponent = exp.Icon
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.15 }}
-                    className="group relative"
-                  >
-                    {/* Hover glow effect */}
-                    <div className={`absolute inset-0 bg-gradient-to-br from-${exp.color}-500/20 via-${exp.color}-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}></div>
+            {!showAllExperiences ? (
+              /* Carousel View */
+              <div className="relative">
+                {/* Carousel Container */}
+                <div className="overflow-hidden">
+                  <div className="grid lg:grid-cols-3 gap-6">
+                    {experiences.slice(currentExperienceSlide, currentExperienceSlide + 3).map((exp, index) => {
+                      const IconComponent = exp.Icon
+                      return (
+                        <motion.div
+                          key={currentExperienceSlide + index}
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className="group relative"
+                        >
+                          {/* Hover glow effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-br from-${exp.color}-500/20 via-${exp.color}-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}></div>
 
-                    <div className="relative h-full p-8 bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 rounded-2xl hover:border-neutral-700/50 transition-all duration-300 overflow-hidden flex flex-col">
-                      {/* Top decorative line */}
-                      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${exp.color}-500 to-${exp.color}-400 opacity-70`}></div>
+                          <div className="relative h-full p-8 bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 rounded-2xl hover:border-neutral-700/50 transition-all duration-300 overflow-hidden flex flex-col">
+                            {/* Top decorative line */}
+                            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${exp.color}-500 to-${exp.color}-400 opacity-70`}></div>
 
-                      {/* Header with icon and badge */}
-                      <div className="flex items-start justify-between mb-6">
-                        <div className={`flex items-center justify-center w-16 h-16 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-2xl group-hover:scale-110 transition-transform duration-300`}>
-                          <IconComponent className={`w-8 h-8 text-${exp.color}-400`} strokeWidth={1.5} />
-                        </div>
-                        <div className={`px-3 py-1.5 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-full`}>
-                          <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.type}</span>
-                        </div>
-                      </div>
+                            {/* Header with icon and badge */}
+                            <div className="flex items-start justify-between mb-6">
+                              <div className={`flex items-center justify-center w-16 h-16 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-2xl group-hover:scale-110 transition-transform duration-300`}>
+                                <IconComponent className={`w-8 h-8 text-${exp.color}-400`} strokeWidth={1.5} />
+                              </div>
+                              <div className={`px-3 py-1.5 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-full`}>
+                                <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.type}</span>
+                              </div>
+                            </div>
 
-                      {/* Title and company */}
-                      <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-accent-400 transition-colors duration-300">
-                        {exp.title}
-                      </h3>
-                      <p className="text-lg text-neutral-300 font-semibold mb-4">{exp.company}</p>
+                            {/* Title and company */}
+                            <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-accent-400 transition-colors duration-300">
+                              {exp.title}
+                            </h3>
+                            <p className="text-lg text-neutral-300 font-semibold mb-4">{exp.company}</p>
 
-                      {/* Meta information */}
-                      <div className="flex flex-col gap-2 mb-5 pb-5 border-b border-neutral-800/50">
-                        <div className="flex items-center gap-2 text-sm text-neutral-400">
-                          <Calendar className="w-4 h-4" />
-                          <span>{exp.period}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-neutral-400">
-                          <MapPin className="w-4 h-4" />
-                          <span>{exp.location}</span>
-                        </div>
-                      </div>
+                            {/* Meta information */}
+                            <div className="flex flex-col gap-2 mb-5 pb-5 border-b border-neutral-800/50">
+                              <div className="flex items-center gap-2 text-sm text-neutral-400">
+                                <Calendar className="w-4 h-4" />
+                                <span>{exp.period}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-neutral-400">
+                                <MapPin className="w-4 h-4" />
+                                <span>{exp.location}</span>
+                              </div>
+                            </div>
 
-                      {/* Description */}
-                      <p className="text-sm text-neutral-300 mb-5 leading-relaxed flex-grow">
-                        {exp.description}
-                      </p>
+                            {/* Description */}
+                            <p className="text-sm text-neutral-300 mb-5 leading-relaxed flex-grow">
+                              {exp.description}
+                            </p>
 
-                      {/* Achievements */}
-                      <div className="space-y-2.5 mt-auto">
-                        <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">Key Achievements</h4>
-                        {exp.achievements.map((achievement, i) => (
-                          <div key={i} className="flex items-start gap-2.5 text-sm text-neutral-400">
-                            <CheckCircle2 className={`w-4 h-4 text-${exp.color}-500 flex-shrink-0 mt-0.5`} strokeWidth={2} />
-                            <span className="leading-snug">{achievement}</span>
+                            {/* Achievements */}
+                            <div className="space-y-2.5 mt-auto">
+                              <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">Key Achievements</h4>
+                              {exp.achievements.map((achievement, i) => (
+                                <div key={i} className="flex items-start gap-2.5 text-sm text-neutral-400">
+                                  <CheckCircle2 className={`w-4 h-4 text-${exp.color}-500 flex-shrink-0 mt-0.5`} strokeWidth={2} />
+                                  <span className="leading-snug">{achievement}</span>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* Bottom decorative element */}
+                            <div className={`absolute -bottom-12 -right-12 w-40 h-40 bg-gradient-to-tl from-${exp.color}-500/10 to-transparent rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700`}></div>
                           </div>
-                        ))}
-                      </div>
+                        </motion.div>
+                      )
+                    })}
+                  </div>
+                </div>
 
-                      {/* Bottom decorative element */}
-                      <div className={`absolute -bottom-12 -right-12 w-40 h-40 bg-gradient-to-tl from-${exp.color}-500/10 to-transparent rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700`}></div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
+                {/* Carousel Controls */}
+                <div className="flex items-center justify-center gap-6 mt-12">
+                  {/* Previous Button */}
+                  <button
+                    onClick={() => setCurrentExperienceSlide(Math.max(0, currentExperienceSlide - 3))}
+                    disabled={currentExperienceSlide === 0}
+                    className="group p-4 bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800/50 hover:border-accent-500/50 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-neutral-800/50"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-neutral-400 group-hover:text-accent-400 transition-colors" strokeWidth={2} />
+                  </button>
+
+                  {/* Pagination Dots */}
+                  <div className="flex items-center gap-3">
+                    {Array.from({ length: Math.ceil(experiences.length / 3) }).map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentExperienceSlide(index * 3)}
+                        className={`transition-all duration-300 rounded-full ${
+                          currentExperienceSlide === index * 3
+                            ? 'w-12 h-3 bg-gradient-to-r from-accent-500 to-accent-600'
+                            : 'w-3 h-3 bg-neutral-700 hover:bg-neutral-600'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => setCurrentExperienceSlide(Math.min(experiences.length - 3, currentExperienceSlide + 3))}
+                    disabled={currentExperienceSlide >= experiences.length - 3}
+                    className="group p-4 bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800/50 hover:border-accent-500/50 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-neutral-800/50"
+                  >
+                    <ChevronRight className="w-6 h-6 text-neutral-400 group-hover:text-accent-400 transition-colors" strokeWidth={2} />
+                  </button>
+                </div>
+
+                {/* Experience Counter */}
+                <div className="text-center mt-8">
+                  <p className="text-neutral-500 text-sm font-medium">
+                    Showing <span className="text-accent-400 font-bold">{currentExperienceSlide + 1}-{Math.min(currentExperienceSlide + 3, experiences.length)}</span> of <span className="text-accent-400 font-bold">{experiences.length}</span> experiences
+                  </p>
+                </div>
+              </div>
+            ) : (
+              /* Grid View - Show All */
+              <div className="grid lg:grid-cols-3 gap-6">
+                {experiences.map((exp, index) => {
+                  const IconComponent = exp.Icon
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                      className="group relative"
+                    >
+                      {/* Hover glow effect */}
+                      <div className={`absolute inset-0 bg-gradient-to-br from-${exp.color}-500/20 via-${exp.color}-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}></div>
+
+                      <div className="relative h-full p-8 bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 rounded-2xl hover:border-neutral-700/50 transition-all duration-300 overflow-hidden flex flex-col">
+                        {/* Top decorative line */}
+                        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${exp.color}-500 to-${exp.color}-400 opacity-70`}></div>
+
+                        {/* Header with icon and badge */}
+                        <div className="flex items-start justify-between mb-6">
+                          <div className={`flex items-center justify-center w-16 h-16 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-2xl group-hover:scale-110 transition-transform duration-300`}>
+                            <IconComponent className={`w-8 h-8 text-${exp.color}-400`} strokeWidth={1.5} />
+                          </div>
+                          <div className={`px-3 py-1.5 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-full`}>
+                            <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.type}</span>
+                          </div>
+                        </div>
+
+                        {/* Title and company */}
+                        <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-accent-400 transition-colors duration-300">
+                          {exp.title}
+                        </h3>
+                        <p className="text-lg text-neutral-300 font-semibold mb-4">{exp.company}</p>
+
+                        {/* Meta information */}
+                        <div className="flex flex-col gap-2 mb-5 pb-5 border-b border-neutral-800/50">
+                          <div className="flex items-center gap-2 text-sm text-neutral-400">
+                            <Calendar className="w-4 h-4" />
+                            <span>{exp.period}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-neutral-400">
+                            <MapPin className="w-4 h-4" />
+                            <span>{exp.location}</span>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-sm text-neutral-300 mb-5 leading-relaxed flex-grow">
+                          {exp.description}
+                        </p>
+
+                        {/* Achievements */}
+                        <div className="space-y-2.5 mt-auto">
+                          <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">Key Achievements</h4>
+                          {exp.achievements.map((achievement, i) => (
+                            <div key={i} className="flex items-start gap-2.5 text-sm text-neutral-400">
+                              <CheckCircle2 className={`w-4 h-4 text-${exp.color}-500 flex-shrink-0 mt-0.5`} strokeWidth={2} />
+                              <span className="leading-snug">{achievement}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Bottom decorative element */}
+                        <div className={`absolute -bottom-12 -right-12 w-40 h-40 bg-gradient-to-tl from-${exp.color}-500/10 to-transparent rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700`}></div>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           {/* Education Section */}
@@ -884,13 +1002,6 @@ const HomeNew = () => {
               })}
             </div>
           </div>
-
-          {/* Decorative line */}
-          <div className="mt-8 pt-6 border-t border-neutral-800/30">
-            <p className="text-center text-neutral-600 text-xs">
-              Built with React, TypeScript & Tailwind CSS
-            </p>
-          </div>
         </div>
       </footer>
 
@@ -900,20 +1011,40 @@ const HomeNew = () => {
         onClose={() => setDevModalOpen(false)}
         title="Development Projects"
       >
-        <div className="grid md:grid-cols-2 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="p-6 bg-neutral-800/30 rounded-xl border border-neutral-700/50">
-              <div className="aspect-video bg-neutral-800 rounded-lg mb-4 flex items-center justify-center text-6xl">
-                💻
+        <div className="space-y-8">
+          {/* Featured Projects Grid */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { title: 'E-Commerce Platform', desc: 'Full-stack e-commerce solution with payment integration', tech: ['React', 'Node.js', 'PostgreSQL'], icon: '🛒' },
+              { title: 'Task Management App', desc: 'Collaborative task management with real-time updates', tech: ['TypeScript', 'Firebase', 'Tailwind'], icon: '✅' },
+              { title: 'Portfolio Website', desc: 'Modern portfolio with smooth animations and responsive design', tech: ['React', 'Framer Motion', 'Vite'], icon: '🎨' },
+              { title: 'API Gateway Service', desc: 'Microservices architecture with API gateway pattern', tech: ['Node.js', 'Docker', 'MongoDB'], icon: '🔌' },
+            ].map((project, i) => (
+              <div key={i} className="group p-6 bg-neutral-800/30 hover:bg-neutral-800/50 rounded-xl border border-neutral-700/50 hover:border-dev-500/50 transition-all duration-300">
+                <div className="aspect-video bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-lg mb-4 flex items-center justify-center text-6xl border border-neutral-700/30 group-hover:scale-105 transition-transform duration-300">
+                  {project.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-dev-400 transition-colors">{project.title}</h3>
+                <p className="text-neutral-400 text-sm mb-4 leading-relaxed">{project.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech, idx) => (
+                    <span key={idx} className="px-3 py-1 bg-dev-500/10 border border-dev-500/20 text-dev-400 text-xs rounded-lg font-medium">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Project {i}</h3>
-              <p className="text-neutral-400 mb-4">A full-stack web application with modern architecture</p>
-              <div className="flex gap-2">
-                <span className="px-3 py-1 bg-dev-500/10 border border-dev-500/20 text-dev-400 text-xs rounded-lg">React</span>
-                <span className="px-3 py-1 bg-dev-500/10 border border-dev-500/20 text-dev-400 text-xs rounded-lg">Node.js</span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center pt-4 border-t border-neutral-800/50">
+            <p className="text-neutral-400 text-sm mb-4">Interested in my development work?</p>
+            <a href="https://github.com/mahimrahman" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-dev-500/10 hover:bg-dev-500/20 border border-dev-500/30 hover:border-dev-500/50 text-dev-400 rounded-xl transition-all duration-300 font-medium">
+              <Github className="w-5 h-5" />
+              View on GitHub
+            </a>
+          </div>
         </div>
       </PortfolioModal>
 
@@ -922,63 +1053,112 @@ const HomeNew = () => {
         onClose={() => setUiuxModalOpen(false)}
         title="UI/UX Design Projects"
       >
-        <div className="grid md:grid-cols-2 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="p-6 bg-neutral-800/30 rounded-xl border border-neutral-700/50">
-              <div className="aspect-video bg-neutral-800 rounded-lg mb-4 flex items-center justify-center text-6xl">
-                ✨
+        <div className="space-y-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { title: 'Mobile Banking App', desc: 'Redesigned banking experience with focus on accessibility', tools: ['Figma', 'User Research'], icon: '💳' },
+              { title: 'Food Delivery Platform', desc: 'End-to-end design system for food ordering service', tools: ['Sketch', 'Prototyping'], icon: '🍔' },
+              { title: 'Healthcare Dashboard', desc: 'Data visualization dashboard for medical professionals', tools: ['Figma', 'User Testing'], icon: '🏥' },
+              { title: 'Social Media App', desc: 'Modern social platform with engaging user interactions', tools: ['Adobe XD', 'Wireframing'], icon: '📱' },
+            ].map((project, i) => (
+              <div key={i} className="group p-6 bg-neutral-800/30 hover:bg-neutral-800/50 rounded-xl border border-neutral-700/50 hover:border-uiux-500/50 transition-all duration-300">
+                <div className="aspect-video bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-lg mb-4 flex items-center justify-center text-6xl border border-neutral-700/30 group-hover:scale-105 transition-transform duration-300">
+                  {project.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-uiux-400 transition-colors">{project.title}</h3>
+                <p className="text-neutral-400 text-sm mb-4 leading-relaxed">{project.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tools.map((tool, idx) => (
+                    <span key={idx} className="px-3 py-1 bg-uiux-500/10 border border-uiux-500/20 text-uiux-400 text-xs rounded-lg font-medium">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Design Case Study {i}</h3>
-              <p className="text-neutral-400 mb-4">User-centered design with comprehensive research</p>
-              <button className="text-uiux-400 hover:text-uiux-300 transition-colors text-sm font-medium">
-                View Prototype →
-              </button>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </PortfolioModal>
 
       <PortfolioModal
         isOpen={designModalOpen}
         onClose={() => setDesignModalOpen(false)}
-        title="Graphic Design"
+        title="Graphic Design Portfolio"
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <button
-              key={i}
-              onClick={() => openGallery([
-                { id: 1, title: 'Brand Identity', category: 'Branding', placeholder: '🎨' },
-                { id: 2, title: 'Poster Design', category: 'Print', placeholder: '🖼️' },
-                { id: 3, title: 'Logo Collection', category: 'Logos', placeholder: '🏷️' },
-              ], i - 1)}
-              className="aspect-square bg-neutral-800 rounded-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center text-6xl"
-            >
-              🎨
-            </button>
-          ))}
+        <div className="space-y-6">
+          <p className="text-neutral-400 text-center">A collection of branding, print, and digital design work</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { emoji: '🎨', title: 'Brand Identity', category: 'Branding' },
+              { emoji: '🖼️', title: 'Poster Design', category: 'Print' },
+              { emoji: '🏷️', title: 'Logo Collection', category: 'Logos' },
+              { emoji: '📱', title: 'App Icons', category: 'Digital' },
+              { emoji: '🎭', title: 'Event Branding', category: 'Branding' },
+              { emoji: '📰', title: 'Magazine Layout', category: 'Print' },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => openGallery([
+                  { id: 1, title: item.title, category: item.category, placeholder: item.emoji },
+                  { id: 2, title: 'Design Variation 1', category: item.category, placeholder: item.emoji },
+                  { id: 3, title: 'Design Variation 2', category: item.category, placeholder: item.emoji },
+                ], 0)}
+                className="group aspect-square bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-700/50 hover:border-design-500/50 rounded-xl hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center text-5xl md:text-6xl"
+              >
+                <span className="mb-2">{item.emoji}</span>
+                <span className="text-xs text-neutral-400 group-hover:text-design-400 transition-colors font-medium">{item.category}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </PortfolioModal>
 
       <PortfolioModal
         isOpen={photoModalOpen}
         onClose={() => setPhotoModalOpen(false)}
-        title="Photography"
+        title="Photography Gallery"
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-            <button
-              key={i}
-              onClick={() => openGallery([
-                { id: 1, title: 'Urban Landscape', category: 'Street', placeholder: '🌆', description: 'City lights at golden hour' },
-                { id: 2, title: 'Portrait Series', category: 'Portrait', placeholder: '👤', description: 'Natural light portraiture' },
-                { id: 3, title: 'Mountain Vista', category: 'Landscape', placeholder: '🏔️', description: 'Dawn in the Alps' },
-              ], i - 1)}
-              className="aspect-square bg-neutral-800 rounded-lg hover:scale-105 transition-transform duration-300 flex items-center justify-center text-6xl"
-            >
-              📸
-            </button>
-          ))}
+        <div className="space-y-6">
+          <p className="text-neutral-400 text-center">Capturing moments through the lens - Street, Portrait & Landscape photography</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { emoji: '🌆', title: 'Urban Landscape', desc: 'City lights at golden hour', category: 'Street' },
+              { emoji: '👤', title: 'Portrait Series', desc: 'Natural light portraiture', category: 'Portrait' },
+              { emoji: '🏔️', title: 'Mountain Vista', desc: 'Dawn in the mountains', category: 'Landscape' },
+              { emoji: '🌃', title: 'Night Photography', desc: 'Urban nightscapes', category: 'Street' },
+              { emoji: '🌅', title: 'Sunrise Collection', desc: 'Morning golden hour', category: 'Landscape' },
+              { emoji: '📸', title: 'Event Coverage', desc: 'Candid moments', category: 'Portrait' },
+              { emoji: '🏙️', title: 'Architecture', desc: 'Modern buildings', category: 'Street' },
+              { emoji: '🌲', title: 'Nature Series', desc: 'Natural landscapes', category: 'Landscape' },
+              { emoji: '🎭', title: 'Cultural Events', desc: 'Festival photography', category: 'Portrait' },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => openGallery([
+                  { id: 1, title: item.title, category: item.category, placeholder: item.emoji, description: item.desc },
+                  { id: 2, title: `${item.title} - Shot 2`, category: item.category, placeholder: item.emoji, description: item.desc },
+                  { id: 3, title: `${item.title} - Shot 3`, category: item.category, placeholder: item.emoji, description: item.desc },
+                ], 0)}
+                className="group aspect-square bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-700/50 hover:border-photo-500/50 rounded-xl hover:scale-105 transition-all duration-300 flex items-center justify-center text-5xl md:text-6xl relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative z-10">{item.emoji}</span>
+                <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <p className="text-xs text-white font-medium">{item.title}</p>
+                  <p className="text-xs text-neutral-400">{item.category}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Social Link */}
+          <div className="text-center pt-4 border-t border-neutral-800/50">
+            <p className="text-neutral-400 text-sm mb-4">See more on my photography page</p>
+            <a href="https://www.instagram.com/snazzy_memories/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-photo-500/10 hover:bg-photo-500/20 border border-photo-500/30 hover:border-photo-500/50 text-photo-400 rounded-xl transition-all duration-300 font-medium">
+              <Instagram className="w-5 h-5" />
+              Follow on Instagram
+            </a>
+          </div>
         </div>
       </PortfolioModal>
 
