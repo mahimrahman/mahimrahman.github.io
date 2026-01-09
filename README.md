@@ -17,12 +17,6 @@ A stunning, modern portfolio website built with React, TypeScript, Tailwind CSS,
 
 ## 🛠️ Tech Stack
 
-- **Framework:** React 18
-- **Build Tool:** Vite
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Deployment:** Vercel
 
 ## 📦 Installation
 
@@ -35,6 +29,21 @@ npm install
 ```bash
 npm run dev
 ```
+## Run locally (Vite)
+
+This project is a Vite + React + TypeScript app. Do **not** open `index.html` directly in the browser or via VS Code “Live Server” — the browser will try to load `/src/main.tsx` as a module and you can get errors like:
+
+`Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "application/octet-stream"`
+
+Instead, run the Vite dev server:
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the printed URL (default: `http://localhost:3000`).
+
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser
 
