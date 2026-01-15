@@ -18,8 +18,9 @@ const Experience = () => {
       period: 'Sep 2023 - Aug 2025',
       location: 'Montreal, QC',
       region: 'Canada',
-      description: 'Mastering advanced software engineering techniques, focusing on project management, software comprehension, and human-computer interaction.',
+      description: 'Graduated Aug 2025. Completed advanced software engineering studies with a focus on project management, software comprehension, and human-computer interaction.',
       achievements: [
+        'Graduated in Aug 2025.',
         'Specializing in Software Architecture and Design.',
         'Active member of the Graduate Students Association.',
         'Conducting research on modern software engineering methodologies.',
