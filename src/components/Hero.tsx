@@ -4,7 +4,7 @@ import ParticlesBackground from './ParticlesBackground'
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0)
-  const roles = ['Software Engineer', 'Web Developer', 'UI/UX Designer', 'Data Analyst']
+  const roles = ['Software Engineer', 'UI/UX Designer', 'Business Analyst', 'Web Developer']
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -142,10 +142,9 @@ const Hero = () => {
             className="flex items-center justify-center gap-6"
           >
             {[
-              { icon: 'github', href: '#' },
-              { icon: 'linkedin', href: '#' },
-              { icon: 'twitter', href: '#' },
-              { icon: 'dribbble', href: '#' },
+              { icon: 'github', href: 'https://github.com/mahimurrahman', label: 'G' },
+              { icon: 'linkedin', href: 'https://www.linkedin.com/in/mahimurrahman-khan', label: 'L' },
+              { icon: 'discord', href: 'https://discord.com/users/1196964174530629725', label: 'D' },
             ].map((social) => (
               <motion.a
                 key={social.icon}
@@ -156,7 +155,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.9 }}
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-slate-400 hover:text-white hover:bg-gradient-to-r hover:from-primary-500 hover:to-accent-500 hover:border-transparent transition-all duration-300"
               >
-                <span className="text-xl">{social.icon[0].toUpperCase()}</span>
+                <span className="text-xl">{social.label}</span>
               </motion.a>
             ))}
           </motion.div>

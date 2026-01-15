@@ -1,142 +1,110 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { ArrowLeft, X, ChevronLeft, ChevronRight, MapPin, Camera } from 'lucide-react'
+
+interface Photo {
+  name: string
+  path: string
+  metadata?: {
+    location?: string
+    model?: string
+    client?: string
+  }
+}
+
+interface Category {
+  name: string
+  path: string
+  imageCount: number
+  images: Photo[]
+}
+
+interface ManifestData {
+  categories: Category[]
+  totalImages: number
+  cloudName: string
+}
 
 const PhotographyPortfolio = () => {
+  const [categories, setCategories] = useState<Category[]>([])
   const [activeCategory, setActiveCategory] = useState('all')
+  const [loading, setLoading] = useState(true)
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
+  const [allPhotos, setAllPhotos] = useState<Photo[]>([])
 
-  const categories = [
-    { id: 'all', label: 'All Work' },
-    { id: 'portrait', label: 'Portrait' },
-    { id: 'landscape', label: 'Landscape' },
-    { id: 'street', label: 'Street' },
-    { id: 'product', label: 'Product' },
-  ]
+  useEffect(() => {
+    fetch('/assets/Photography/photography-manifest.json')
+      .then(res => res.json())
+      .then((data: ManifestData) => {
+        setCategories(data.categories)
+        const all = data.categories.flatMap(cat => cat.images)
+        setAllPhotos(all)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Error loading photography:', err)
+        setLoading(false)
+      })
+  }, [])
 
-  const photos = [
-    {
-      title: 'Urban Reflections',
-      category: 'street',
-      location: 'Tokyo, Japan',
-      year: '2024',
-      camera: 'Sony A7IV',
-      settings: 'f/2.8 | 1/125s | ISO 800',
-      description: 'Capturing the interplay of light and shadow in modern architecture',
-      image: '🌃',
-      size: 'large',
-    },
-    {
-      title: 'Golden Hour Portrait',
-      category: 'portrait',
-      location: 'California Coast',
-      year: '2024',
-      camera: 'Canon R5',
-      settings: 'f/1.8 | 1/500s | ISO 200',
-      description: 'Natural light portrait during the magic hour',
-      image: '👤',
-      size: 'medium',
-    },
-    {
-      title: 'Mountain Majesty',
-      category: 'landscape',
-      location: 'Swiss Alps',
-      year: '2023',
-      camera: 'Nikon Z9',
-      settings: 'f/11 | 1/250s | ISO 100',
-      description: 'Panoramic vista of snow-capped peaks at dawn',
-      image: '🏔️',
-      size: 'large',
-    },
-    {
-      title: 'Artisan Coffee',
-      category: 'product',
-      location: 'Studio',
-      year: '2024',
-      camera: 'Sony A7IV',
-      settings: 'f/5.6 | 1/60s | ISO 100',
-      description: 'Commercial product photography with dramatic lighting',
-      image: '☕',
-      size: 'medium',
-    },
-    {
-      title: 'Monsoon Magic',
-      category: 'street',
-      location: 'Mumbai, India',
-      year: '2023',
-      camera: 'Fujifilm X-T5',
-      settings: 'f/4 | 1/250s | ISO 1600',
-      description: 'Street photography capturing the essence of urban life',
-      image: '🌧️',
-      size: 'medium',
-    },
-    {
-      title: 'Fashion Editorial',
-      category: 'portrait',
-      location: 'NYC Studio',
-      year: '2023',
-      camera: 'Canon R5',
-      settings: 'f/2.2 | 1/160s | ISO 400',
-      description: 'High-fashion editorial shoot with dramatic styling',
-      image: '👗',
-      size: 'small',
-    },
-    {
-      title: 'Desert Dawn',
-      category: 'landscape',
-      location: 'Sahara Desert',
-      year: '2023',
-      camera: 'Nikon Z9',
-      settings: 'f/8 | 1/500s | ISO 64',
-      description: 'First light over endless dunes',
-      image: '🏜️',
-      size: 'medium',
-    },
-    {
-      title: 'Luxury Timepiece',
-      category: 'product',
-      location: 'Studio',
-      year: '2023',
-      camera: 'Phase One',
-      settings: 'f/16 | 1/125s | ISO 50',
-      description: 'Precision product photography for luxury brand',
-      image: '⌚',
-      size: 'small',
-    },
-    {
-      title: 'Neon Nights',
-      category: 'street',
-      location: 'Seoul, Korea',
-      year: '2022',
-      camera: 'Sony A7IV',
-      settings: 'f/1.4 | 1/80s | ISO 3200',
-      description: 'Vibrant street scenes in neon-lit districts',
-      image: '🌆',
-      size: 'medium',
-    },
-  ]
-
-  const filteredPhotos = activeCategory === 'all'
-    ? photos
-    : photos.filter(photo => photo.category === activeCategory)
-
-  const getGridClass = (size: string) => {
-    switch (size) {
-      case 'large':
-        return 'md:col-span-2 md:row-span-2'
-      case 'medium':
-        return 'md:col-span-1 md:row-span-1'
-      case 'small':
-        return 'md:col-span-1 md:row-span-1'
-      default:
-        return ''
+  const getDisplayPhotos = () => {
+    if (activeCategory === 'all') {
+      return allPhotos
     }
+    const category = categories.find(c => c.name.toLowerCase() === activeCategory)
+    return category ? category.images : allPhotos
+  }
+
+  const displayPhotos = getDisplayPhotos()
+
+  const openLightbox = (photo: Photo, index: number) => {
+    setSelectedPhoto(photo)
+    setCurrentPhotoIndex(index)
+  }
+
+  const closeLightbox = () => {
+    setSelectedPhoto(null)
+  }
+
+  const nextPhoto = () => {
+    const photos = getDisplayPhotos()
+    setCurrentPhotoIndex((prev) => (prev + 1) % photos.length)
+    setSelectedPhoto(photos[(currentPhotoIndex + 1) % photos.length])
+  }
+
+  const prevPhoto = () => {
+    const photos = getDisplayPhotos()
+    setCurrentPhotoIndex((prev) => (prev - 1 + photos.length) % photos.length)
+    setSelectedPhoto(photos[(currentPhotoIndex - 1 + photos.length) % photos.length])
+  }
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (!selectedPhoto) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowRight') nextPhoto()
+      if (e.key === 'ArrowLeft') prevPhoto()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [selectedPhoto, currentPhotoIndex])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-neutral-950 to-neutral-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-neutral-400 text-xl">Loading Photography...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
       className="min-h-screen bg-gradient-to-b from-neutral-950 to-neutral-900"
     >
       {/* Hero Section */}
@@ -153,31 +121,27 @@ const PhotographyPortfolio = () => {
             transition={{ duration: 0.8 }}
           >
             <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-neutral-400 hover:text-terra-400 transition-colors mb-8 group"
+              to="/#portfolio"
+              className="inline-flex items-center gap-2 text-neutral-400 hover:text-rose-400 transition-colors mb-8 group"
             >
-              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Home
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+              Back to Portfolio
             </Link>
 
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-6xl">📸</span>
-              <div>
-                <span className="inline-block px-3 py-1 bg-terra-500/10 border border-terra-500/20 rounded-full text-terra-400 text-sm font-medium mb-3 font-mono">
-                  PHOTOGRAPHY
+            <div className="mb-6">
+              <span className="inline-block px-3 py-1 bg-rose-500/10 border border-rose-500/20 rounded-full text-rose-400 text-sm font-medium mb-3 font-mono">
+                PHOTOGRAPHY
+              </span>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white drop-shadow-lg">
+                Visual{' '}
+                <span className="bg-gradient-to-r from-rose-400 to-rose-600 bg-clip-text text-transparent drop-shadow-lg">
+                  Stories
                 </span>
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-neutral-100">
-                  Visual{' '}
-                  <span className="bg-gradient-to-r from-terra-400 to-terra-600 bg-clip-text text-transparent">
-                    Stories
-                  </span>
-                </h1>
-              </div>
+              </h1>
             </div>
-            <p className="text-xl text-neutral-400 max-w-3xl">
-              Capturing moments, emotions, and stories through the lens. From portraits to landscapes, each image tells a unique narrative.
+            <p className="text-xl text-neutral-300 max-w-3xl">
+              Capturing moments, emotions, and stories through the lens. Explore {allPhotos.length} photographs
+              from landscapes across Montreal, Bangladesh, and Malaysia to portraits and product photography.
             </p>
           </motion.div>
         </div>
@@ -187,17 +151,27 @@ const PhotographyPortfolio = () => {
       <section className="relative py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+              onClick={() => setActiveCategory('all')}
+              className={`px-6 py-3 rounded-xl font-medium font-mono text-sm transition-all duration-300 ${
+                activeCategory === 'all'
+                  ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white shadow-lg shadow-rose-500/30 scale-105'
+                  : 'bg-neutral-900/50 border border-neutral-800/50 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700/50'
+              }`}
+            >
+              All ({allPhotos.length})
+            </button>
             {categories.map((category) => (
               <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                key={category.name}
+                onClick={() => setActiveCategory(category.name.toLowerCase())}
                 className={`px-6 py-3 rounded-xl font-medium font-mono text-sm transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'bg-gradient-to-r from-terra-500 to-terra-600 text-white shadow-lg shadow-terra-500/30 scale-105'
+                  activeCategory === category.name.toLowerCase()
+                    ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white shadow-lg shadow-rose-500/30 scale-105'
                     : 'bg-neutral-900/50 border border-neutral-800/50 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700/50'
                 }`}
               >
-                {category.label}
+                {category.name} ({category.imageCount})
               </button>
             ))}
           </div>
@@ -209,83 +183,115 @@ const PhotographyPortfolio = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             layout
-            className="grid md:grid-cols-3 gap-6 auto-rows-auto"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
-            {filteredPhotos.map((photo, index) => (
+            {displayPhotos.map((photo, index) => (
               <motion.div
-                key={index}
+                key={photo.path}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className={`group ${getGridClass(photo.size)}`}
+                transition={{ duration: 0.4, delay: Math.min(index * 0.03, 0.5) }}
+                className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
+                onClick={() => openLightbox(photo, index)}
               >
-                <div className="relative h-full min-h-[300px] bg-gradient-to-br from-neutral-900/50 to-neutral-900/30 border border-neutral-800/50 rounded-2xl overflow-hidden hover:border-terra-500/30 transition-all duration-500 cursor-pointer">
-                  {/* Image Placeholder with Emoji */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-800/50 to-neutral-900/80">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ duration: 0.5 }}
-                      className="text-9xl opacity-20"
-                    >
-                      {photo.image}
-                    </motion.div>
-                  </div>
+                <img
+                  src={photo.path}
+                  alt={photo.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500"></div>
-
-                  {/* Content */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                    {/* Category Badge */}
-                    <div className="mb-auto">
-                      <span className="inline-block px-3 py-1 bg-terra-500/20 border border-terra-500/30 rounded-lg text-terra-400 text-xs font-medium font-mono backdrop-blur-sm">
-                        {categories.find(c => c.id === photo.category)?.label}
-                      </span>
+                {/* Overlay Info */}
+                <div className="absolute inset-0 p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {photo.metadata?.location && (
+                    <div className="flex items-center gap-1 text-white text-sm mb-1">
+                      <MapPin size={14} />
+                      <span className="truncate">{photo.metadata.location}</span>
                     </div>
-
-                    {/* Details */}
-                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                      <h3 className="text-2xl font-display font-bold text-white mb-2">
-                        {photo.title}
-                      </h3>
-
-                      <div className="flex items-center gap-2 text-sm text-neutral-400 mb-3">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span>{photo.location}</span>
-                        <span className="text-neutral-600">•</span>
-                        <span>{photo.year}</span>
-                      </div>
-
-                      <p className="text-neutral-400 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                        {photo.description}
-                      </p>
-
-                      {/* Technical Info */}
-                      <div className="space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
-                        <div className="flex items-center gap-2 text-xs text-neutral-500 font-mono">
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                          {photo.camera}
-                        </div>
-                        <div className="text-xs text-neutral-600 font-mono">
-                          {photo.settings}
-                        </div>
-                      </div>
+                  )}
+                  {photo.metadata?.model && (
+                    <div className="flex items-center gap-1 text-white/70 text-xs">
+                      <Camera size={12} />
+                      <span>Model: {photo.metadata.model}</span>
                     </div>
-                  </div>
+                  )}
                 </div>
+
+                {/* Hover Border Effect */}
+                <div className="absolute inset-0 border-2 border-rose-500/0 group-hover:border-rose-500/50 rounded-xl transition-all duration-300"></div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selectedPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 p-3 bg-neutral-800/80 backdrop-blur-sm rounded-full text-white hover:bg-neutral-700 transition-colors z-10"
+            >
+              <X size={24} />
+            </button>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
+              className="absolute left-4 p-4 bg-neutral-800/80 backdrop-blur-sm rounded-full text-white hover:bg-neutral-700 transition-colors"
+            >
+              <ChevronLeft size={32} />
+            </button>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
+              className="absolute right-4 p-4 bg-neutral-800/80 backdrop-blur-sm rounded-full text-white hover:bg-neutral-700 transition-colors"
+            >
+              <ChevronRight size={32} />
+            </button>
+
+            {/* Main Image */}
+            <motion.img
+              key={selectedPhoto.path}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              src={selectedPhoto.path}
+              alt={selectedPhoto.name}
+              className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Photo Info */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-neutral-800/80 backdrop-blur-sm rounded-xl text-white text-center">
+              {selectedPhoto.metadata?.location && (
+                <div className="flex items-center justify-center gap-2 text-lg mb-1">
+                  <MapPin size={18} className="text-rose-400" />
+                  <span>{selectedPhoto.metadata.location}</span>
+                </div>
+              )}
+              {selectedPhoto.metadata?.model && (
+                <div className="text-sm text-neutral-400">
+                  Model: {selectedPhoto.metadata.model}
+                </div>
+              )}
+              <div className="text-sm text-neutral-500 mt-2">
+                {currentPhotoIndex + 1} / {displayPhotos.length}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Photography Services */}
       <section className="relative py-20">
@@ -299,24 +305,29 @@ const PhotographyPortfolio = () => {
             <h2 className="text-4xl font-display font-bold text-neutral-100 mb-12 text-center">Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { icon: '👤', title: 'Portrait', desc: 'Professional headshots and lifestyle photography' },
-                { icon: '🏞️', title: 'Landscape', desc: 'Nature and architectural photography' },
-                { icon: '📦', title: 'Product', desc: 'Commercial product photography' },
-                { icon: '🎉', title: 'Events', desc: 'Weddings, corporate events, and celebrations' },
-              ].map((service, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 bg-neutral-900/30 border border-neutral-800/50 rounded-xl hover:border-terra-500/30 transition-all duration-300"
-                >
-                  <div className="text-4xl mb-3">{service.icon}</div>
-                  <h3 className="text-xl font-bold text-neutral-100 mb-2">{service.title}</h3>
-                  <p className="text-sm text-neutral-400">{service.desc}</p>
-                </motion.div>
-              ))}
+                { icon: MapPin, title: 'Landscape', desc: 'Nature, architecture, and cityscape photography' },
+                { icon: Camera, title: 'Portrait', desc: 'Professional headshots and lifestyle photography' },
+                { icon: Camera, title: 'Product', desc: 'Commercial product photography for brands' },
+                { icon: Camera, title: 'Events', desc: 'Weddings, corporate events, and celebrations' },
+              ].map((service, index) => {
+                const Icon = service.icon
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="p-6 bg-neutral-900/30 border border-neutral-800/50 rounded-xl hover:border-rose-500/30 transition-all duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center mb-4">
+                      <Icon className="text-rose-400" size={24} />
+                    </div>
+                    <h3 className="text-xl font-bold text-neutral-100 mb-2">{service.title}</h3>
+                    <p className="text-sm text-neutral-400">{service.desc}</p>
+                  </motion.div>
+                )
+              })}
             </div>
           </motion.div>
         </div>
@@ -338,18 +349,16 @@ const PhotographyPortfolio = () => {
               Let's capture your story through compelling visuals.
             </p>
             <Link
-              to="/contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-terra-500 to-terra-600 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-terra-500/30 transition-all duration-300 hover:scale-105"
+              to="/#contact"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-rose-500/30 transition-all duration-300 hover:scale-105"
             >
               Book a Session
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              <ChevronRight size={20} />
             </Link>
           </motion.div>
         </div>
       </section>
-    </motion.div>
+    </div>
   )
 }
 

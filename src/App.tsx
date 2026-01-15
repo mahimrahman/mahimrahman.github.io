@@ -1,38 +1,53 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Cursor from './components/Cursor'
 import ScrollProgress from './components/ScrollProgress'
 import HomeNew from './pages/HomeNew'
+import UIUXPortfolio from './pages/UIUXPortfolio'
+import PhotographyPortfolio from './pages/PhotographyPortfolio'
+import DesignPortfolio from './pages/DesignPortfolio'
+import DevelopmentPortfolio from './pages/DevelopmentPortfolio'
 
 function App() {
-  const [loading, setLoading] = useState(true)
+  const location = useLocation()
+  const navigate = useNavigate()
 
+  // Handle /contact redirect to /#contact
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 1500)
+    if (location.pathname === '/contact') {
+      navigate('/#contact', { replace: true })
+    }
+  }, [location.pathname, navigate])
 
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950">
-        <div className="text-center">
-          <div className="relative w-24 h-24 mx-auto mb-6">
-            <div className="absolute inset-0 border-4 border-primary-500/20 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-t-primary-500 border-r-accent-500 rounded-full animate-spin"></div>
-          </div>
-          <h2 className="text-2xl font-display font-bold bg-gradient-to-r from-primary-400 via-accent-400 to-primary-500 bg-clip-text text-transparent">Loading Portfolio</h2>
-        </div>
-      </div>
-    )
-  }
+  // Scroll to top on route change, but respect hash anchors
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      // For portfolio pages, scroll to top immediately
+      window.scrollTo(0, 0)
+    } else if (location.hash) {
+      // For home page with hash, scroll to section
+      setTimeout(() => {
+        const element = document.querySelector(location.hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [location.pathname, location.hash])
 
   return (
     <div className="relative min-h-screen bg-neutral-950">
       <Cursor />
       <ScrollProgress />
-      <HomeNew />
+      <Routes location={location}>
+        <Route path="/" element={<HomeNew />} />
+        <Route path="/portfolio/uiux" element={<UIUXPortfolio />} />
+        <Route path="/portfolio/photography" element={<PhotographyPortfolio />} />
+        <Route path="/portfolio/graphics" element={<DesignPortfolio />} />
+        <Route path="/portfolio/development" element={<DevelopmentPortfolio />} />
+      </Routes>
     </div>
   )
 }

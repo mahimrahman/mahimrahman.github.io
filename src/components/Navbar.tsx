@@ -189,7 +189,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <Link to="/contact">
+          <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>
             <motion.button
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -198,7 +198,7 @@ const Navbar = () => {
             >
               Let's Talk
             </motion.button>
-          </Link>
+          </a>
 
           {/* Mobile Menu Button */}
           <button
@@ -302,11 +302,11 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
 
-              <Link to="/contact">
+              <a href="#contact" onClick={(e) => { handleNavClick(e, '#contact'); setIsMobileMenuOpen(false); }}>
                 <div className="w-full px-4 py-3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-accent-500/50 transition-all duration-300 text-center">
                   Let's Talk
                 </div>
-              </Link>
+              </a>
             </div>
           </motion.div>
         )}

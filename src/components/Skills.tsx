@@ -1,46 +1,78 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { Code2, Users, Settings, Palette, LucideIcon } from 'lucide-react'
+
+interface SkillCategory {
+  title: string
+  icon: LucideIcon
+  color: string
+  skills: { name: string; level: number }[]
+}
 
 const Skills = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
-  const skillCategories = [
+  const skillCategories: SkillCategory[] = [
     {
       title: 'Frontend & Design',
-      icon: '🎨',
+      icon: Palette,
+      color: 'from-orange-500 to-yellow-500',
+      skills: [
+        { name: 'React', level: 95 },
+        { name: 'TypeScript', level: 92 },
+        { name: 'Tailwind CSS', level: 94 },
+        { name: 'Figma', level: 90 },
+        { name: 'Adobe Photoshop', level: 88 },
+        { name: 'Adobe Illustrator', level: 85 },
+        { name: 'UI/UX Design', level: 90 },
+        { name: 'WordPress', level: 85 },
+      ],
+    },
+    {
+      title: 'Backend Development',
+      icon: Code2,
       color: 'from-blue-500 to-cyan-500',
       skills: [
-        { name: 'React / TypeScript', level: 95 },
-        { name: 'UI/UX Design', level: 90 },
-        { name: 'Figma / Adobe Suite', level: 88 },
-        { name: 'Next.js', level: 92 },
-        { name: 'Tailwind CSS', level: 94 },
-      ],
-    },
-    {
-      title: 'Backend & Data',
-      icon: '⚙️',
-      color: 'from-green-500 to-emerald-500',
-      skills: [
-        { name: 'Node.js', level: 90 },
         { name: 'Python', level: 88 },
-        { name: 'SQL / Databases', level: 85 },
+        { name: 'Java', level: 85 },
+        { name: 'Node.js', level: 90 },
+        { name: 'PostgreSQL', level: 85 },
+        { name: 'MongoDB', level: 82 },
+        { name: 'Docker', level: 80 },
         { name: 'REST APIs', level: 92 },
-        { name: 'Data Visualization', level: 85 },
+        { name: 'Git/GitHub', level: 95 },
       ],
     },
     {
-      title: 'Management & Tools',
-      icon: '🎯',
+      title: 'Project Management',
+      icon: Users,
       color: 'from-purple-500 to-pink-500',
       skills: [
-        { name: 'Project Management', level: 90 },
-        { name: 'Agile / Scrum', level: 92 },
+        { name: 'Agile/Scrum', level: 92 },
         { name: 'Jira', level: 88 },
-        { name: 'Git & GitHub', level: 95 },
-        { name: 'Team Coordination', level: 90 },
+        { name: 'Azure DevOps', level: 85 },
+        { name: 'Trello', level: 90 },
+        { name: 'Team Leadership', level: 90 },
+        { name: 'Resource Planning', level: 85 },
+        { name: 'SEO Strategy', level: 82 },
+        { name: 'Analytics', level: 85 },
+      ],
+    },
+    {
+      title: 'Tools & Technologies',
+      icon: Settings,
+      color: 'from-red-500 to-orange-500',
+      skills: [
+        { name: 'Microsoft Office', level: 95 },
+        { name: 'Power BI', level: 85 },
+        { name: 'LaTeX/Overleaf', level: 88 },
+        { name: 'Data Analysis', level: 85 },
+        { name: 'Digital Marketing', level: 82 },
+        { name: 'Content Strategy', level: 85 },
+        { name: 'AI/Prompt Engineering', level: 90 },
+        { name: 'Cloud Services', level: 80 },
       ],
     },
   ]
@@ -70,8 +102,10 @@ const Skills = () => {
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {skillCategories.map((category, categoryIndex) => {
+            const IconComponent = category.icon
+            return (
             <motion.div
               key={categoryIndex}
               initial={{ opacity: 0, y: 50 }}
@@ -81,8 +115,8 @@ const Skills = () => {
             >
               {/* Category Header */}
               <div className="flex items-center gap-4 mb-6">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${category.color} flex items-center justify-center text-3xl group-hover:scale-110 transition-transform`}>
-                  {category.icon}
+                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                  <IconComponent size={32} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white group-hover:text-gradient transition-all">
                   {category.title}
@@ -109,7 +143,7 @@ const Skills = () => {
                 ))}
               </div>
             </motion.div>
-          ))}
+          )})}
         </div>
 
         {/* Tech Stack */}
@@ -124,10 +158,10 @@ const Skills = () => {
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              'React', 'TypeScript', 'Node.js', 'Python', 'Next.js', 'Tailwind CSS',
-              'MongoDB', 'PostgreSQL', 'Docker', 'AWS', 'Git', 'Vue.js',
-              'Express.js', 'Redux', 'GraphQL', 'Firebase', 'Vercel', 'Prisma',
-              'REST APIs', 'WebSockets', 'Jest', 'Webpack', 'Vite', 'Sass',
+              'React', 'TypeScript', 'Node.js', 'Python', 'Java', 'Tailwind CSS',
+              'MongoDB', 'PostgreSQL', 'Docker', 'Git/GitHub', 'Vue.js', 'Laravel',
+              'Figma', 'Adobe Photoshop', 'Adobe Illustrator', 'WordPress', 'Jira', 'Azure DevOps',
+              'REST APIs', 'Power BI', 'LaTeX', 'AI/Prompt Engineering', 'Cloud Services', 'Trello',
             ].map((tech, index) => (
               <motion.div
                 key={index}

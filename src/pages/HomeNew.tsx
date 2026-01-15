@@ -1,26 +1,14 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Code2, Palette, Sparkles, Wrench, CheckCircle2, Briefcase, Rocket, GraduationCap, ScrollText, Calendar, MapPin, ArrowRight, Monitor, Figma, PenTool, Camera, Mail, Linkedin, Github, Twitter, Instagram, ChevronLeft, ChevronRight, Grid3x3 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Code2, Palette, Sparkles, Wrench, CheckCircle2, Briefcase, Rocket, GraduationCap, ScrollText, Calendar, MapPin, ArrowRight, Monitor, Figma, PenTool, Camera, Mail, Linkedin, Github, Instagram, ChevronLeft, ChevronRight, Grid3x3 } from 'lucide-react'
 import InteractiveBackground from '../components/InteractiveBackground'
-import PortfolioModal from '../components/PortfolioModal'
-import ImageGalleryModal from '../components/ImageGalleryModal'
 
 const HomeNew = () => {
-  const [devModalOpen, setDevModalOpen] = useState(false)
-  const [uiuxModalOpen, setUiuxModalOpen] = useState(false)
-  const [designModalOpen, setDesignModalOpen] = useState(false)
-  const [photoModalOpen, setPhotoModalOpen] = useState(false)
-  const [galleryOpen, setGalleryOpen] = useState(false)
-  const [galleryImages, setGalleryImages] = useState<any[]>([])
-  const [galleryIndex, setGalleryIndex] = useState(0)
+  const navigate = useNavigate()
   const [showAllExperiences, setShowAllExperiences] = useState(false)
   const [currentExperienceSlide, setCurrentExperienceSlide] = useState(0)
-
-  const openGallery = (images: any[], index: number = 0) => {
-    setGalleryImages(images)
-    setGalleryIndex(index)
-    setGalleryOpen(true)
-  }
+  const [experienceFilter, setExperienceFilter] = useState<'all' | 'canada' | 'malaysia' | 'bangladesh'>('all')
 
   // Portfolio data (modern design with lucide icons)
   const portfolioCategories = [
@@ -32,7 +20,7 @@ const HomeNew = () => {
       gradient: 'from-dev-500/20 to-dev-600/10',
       color: 'dev',
       count: '12+ Projects',
-      onClick: () => setDevModalOpen(true),
+      onClick: () => navigate('/portfolio/development'),
     },
     {
       id: 'uiux',
@@ -41,8 +29,8 @@ const HomeNew = () => {
       description: 'User Experience & Interfaces',
       gradient: 'from-uiux-500/20 to-uiux-600/10',
       color: 'uiux',
-      count: '8+ Projects',
-      onClick: () => setUiuxModalOpen(true),
+      count: '15+ Projects',
+      onClick: () => navigate('/portfolio/uiux'),
     },
     {
       id: 'design',
@@ -52,7 +40,7 @@ const HomeNew = () => {
       gradient: 'from-design-500/20 to-design-600/10',
       color: 'design',
       count: '15+ Projects',
-      onClick: () => setDesignModalOpen(true),
+      onClick: () => navigate('/portfolio/graphics'),
     },
     {
       id: 'photography',
@@ -62,7 +50,7 @@ const HomeNew = () => {
       gradient: 'from-photo-500/20 to-photo-600/10',
       color: 'photo',
       count: '20+ Projects',
-      onClick: () => setPhotoModalOpen(true),
+      onClick: () => navigate('/portfolio/photography'),
     },
   ]
 
@@ -97,14 +85,29 @@ const HomeNew = () => {
   // Experience data (modern timeline design)
   const experiences = [
     {
+      title: 'Software Engineer',
+      company: 'Bassili Group',
+      location: 'Montreal, QC, Canada',
+      period: '2023 - 2024',
+      region: 'canada',
+      Icon: Code2,
+      color: 'dev',
+      description: 'Developed and deployed BassiliChat AI and BassiliTrade platforms. Architected scalable backend solutions using modern frameworks and cloud technologies.',
+      achievements: [
+        'Built BassiliChat AI conversational platform with real-time capabilities.',
+        'Developed BassiliTrade trading platform with data visualization.',
+        'Optimized application performance across both flagship products.',
+      ],
+    },
+    {
       title: 'VP – Marketing',
       company: 'HackConcordia',
       location: 'Montreal, QC, Canada',
-      period: 'Present',
-      type: 'Volunteer',
+      period: 'May 2024 - Present',
+      region: 'canada',
       Icon: Rocket,
       color: 'dev',
-      description: 'Leading marketing initiatives for HackConcordia, organizing large-scale hackathons and tech events to foster the student developer community.',
+      description: "Leading marketing initiatives for Canada's largest student-run hackathon. Managed social media campaigns reaching 10,000+ students.",
       achievements: [
         'Managed social media presence and executed strategic marketing campaigns.',
         'Coordinated with sponsors and partners to secure funding and support for events.',
@@ -113,13 +116,13 @@ const HomeNew = () => {
     },
     {
       title: 'Graduate Teaching Assistant',
-      company: 'SOEN 6431, Concordia University',
+      company: 'SOEN 6431, Gina Cody School',
       location: 'Montreal, QC, Canada',
-      period: 'Sep 2023 - Present',
-      type: 'Part-time',
+      period: 'Fall 2024 - Winter 2025',
+      region: 'canada',
       Icon: GraduationCap,
       color: 'uiux',
-      description: 'Assisting in the instruction of SOEN 6431, providing guidance to students on software engineering concepts and methodologies.',
+      description: 'Teaching Assistant for SOEN 6431 Software Systems Requirements Engineering. Graded assignments and projects for 80+ graduate students.',
       achievements: [
         'Facilitated learning for graduate students in software engineering principles.',
         'Provided detailed feedback and grading for assignments and projects.',
@@ -130,11 +133,11 @@ const HomeNew = () => {
       title: 'Director',
       company: 'Graduate Students\' Association',
       location: 'Montreal, QC, Canada',
-      period: 'Recent',
-      type: 'Leadership',
+      period: 'June 2024 - Present',
+      region: 'canada',
       Icon: Briefcase,
       color: 'design',
-      description: 'Serving as Director for the Graduate Students\' Association, representing graduate student interests and organizing community events.',
+      description: 'Elected Director representing graduate student interests university-wide. Participated in Student Handbook and Healthcare Committee initiatives.',
       achievements: [
         'Advocated for graduate student needs and concerns.',
         'Organized networking events and professional development workshops.',
@@ -143,13 +146,13 @@ const HomeNew = () => {
     },
     {
       title: 'Student Facilitator',
-      company: 'Homeroom, Dean of Students Office',
+      company: 'Dean of Students Office',
       location: 'Montreal, QC, Canada',
-      period: 'Recent',
-      type: 'Part-time',
+      period: 'Sep 2024 - Present',
+      region: 'canada',
       Icon: Palette,
       color: 'photo',
-      description: 'Facilitated student programs and initiatives through the Dean of Students Office.',
+      description: 'Facilitated peer-led discussions and collaborative learning activities for new students. Provided mentorship and guidance to support academic transition.',
       achievements: [
         'Supported new student orientation and integration programs.',
         'Coordinated student engagement activities.',
@@ -160,11 +163,11 @@ const HomeNew = () => {
       title: 'Marketing/Communications',
       company: 'TEDx Concordia University',
       location: 'Montreal, QC, Canada',
-      period: 'Recent',
-      type: 'Volunteer',
+      period: 'Jan 2025 - Mar 2025',
+      region: 'canada',
       Icon: Sparkles,
       color: 'dev',
-      description: 'Managed marketing and communications for TEDx Concordia University events.',
+      description: 'Developed and executed marketing strategies for TEDx Concordia University 2025 event. Created compelling content and managed social media campaigns.',
       achievements: [
         'Developed and executed comprehensive marketing strategies.',
         'Created engaging content for social media and promotional materials.',
@@ -174,12 +177,12 @@ const HomeNew = () => {
     {
       title: 'Web Developer & UI/UX Designer',
       company: 'Zavy Technologies Sdn Bhd',
-      location: 'Malaysia',
-      period: '2022',
-      type: 'Full-time',
+      location: 'Cyberjaya, Malaysia',
+      period: 'Dec 2021 - Aug 2022',
+      region: 'malaysia',
       Icon: Monitor,
       color: 'uiux',
-      description: 'Developed and maintained web applications, ensuring high performance and responsiveness across various devices and platforms.',
+      description: 'Delivered customized web solutions for diverse clients. Developed responsive websites using modern web technologies and managed ERP systems.',
       achievements: [
         'Collaborated with cross-functional teams to deliver robust software solutions.',
         'Implemented responsive designs and optimized user experience for web platforms.',
@@ -188,13 +191,13 @@ const HomeNew = () => {
     },
     {
       title: 'General Secretary',
-      company: 'Bangladeshi Student Association',
-      location: 'Malaysia',
-      period: 'Past',
-      type: 'Leadership',
+      company: 'BD Student Association LUCT',
+      location: 'Cyberjaya, Malaysia',
+      period: '2019 - 2021',
+      region: 'malaysia',
       Icon: Briefcase,
       color: 'design',
-      description: 'Led administrative operations for the Bangladeshi Student Association.',
+      description: 'Coordinated events and cultural programs to promote Bangladeshi culture. Managed communication between executive committee and members.',
       achievements: [
         'Coordinated cultural events and community gatherings.',
         'Managed organizational communications and documentation.',
@@ -203,13 +206,13 @@ const HomeNew = () => {
     },
     {
       title: 'Senior Member',
-      company: 'Connecting Youth Foundation',
-      location: 'Bangladesh',
-      period: 'Past',
-      type: 'Volunteer',
+      company: 'Connecting Youth for Change',
+      location: 'Dhaka, Bangladesh',
+      period: 'Jun 2014 - May 2019',
+      region: 'bangladesh',
       Icon: Rocket,
       color: 'photo',
-      description: 'Contributed to youth development initiatives and community outreach programs.',
+      description: 'Led youth-driven social service projects focused on education and community welfare. Mentored junior members and coordinated cross-organizational partnerships.',
       achievements: [
         'Organized workshops and training sessions for youth development.',
         'Participated in community service projects.',
@@ -219,12 +222,12 @@ const HomeNew = () => {
     {
       title: 'Member',
       company: 'Bangladesh Scouts',
-      location: 'Bangladesh',
-      period: 'Past',
-      type: 'Volunteer',
+      location: 'Dhaka, Bangladesh',
+      period: '2011 - 2019',
+      region: 'bangladesh',
       Icon: Sparkles,
       color: 'dev',
-      description: 'Active member of Bangladesh Scouts, participating in community service and leadership activities.',
+      description: 'Participated in national scouting programs developing leadership and teamwork. Contributed to community service initiatives including disaster relief.',
       achievements: [
         'Participated in community service and outreach programs.',
         'Developed leadership and teamwork skills.',
@@ -249,6 +252,11 @@ const HomeNew = () => {
       details: 'Graduated with First Class Honours. Final year project on "Smart Attendance System using Face Recognition".'
     },
   ]
+
+  // Filter experiences based on selected region
+  const filteredExperiences = experienceFilter === 'all' 
+    ? experiences 
+    : experiences.filter(exp => exp.region === experienceFilter)
 
   return (
     <div className="min-h-screen bg-neutral-950">
@@ -541,7 +549,7 @@ const HomeNew = () => {
             </p>
 
             {/* View Toggle Buttons */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
               <button
                 onClick={() => setShowAllExperiences(!showAllExperiences)}
                 className="group px-6 py-3 bg-neutral-800/50 hover:bg-neutral-800/80 border border-neutral-700/50 hover:border-accent-500/50 rounded-xl transition-all duration-300 flex items-center gap-2"
@@ -549,6 +557,28 @@ const HomeNew = () => {
                 <Grid3x3 className="w-5 h-5 text-neutral-400 group-hover:text-accent-400 transition-colors" strokeWidth={1.5} />
                 <span className="text-white font-medium">{showAllExperiences ? 'Show Carousel' : 'Show All'}</span>
               </button>
+            </div>
+
+            {/* Region Filters */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {[
+                { key: 'all', label: 'All' },
+                { key: 'canada', label: 'Canada' },
+                { key: 'malaysia', label: 'Malaysia' },
+                { key: 'bangladesh', label: 'Bangladesh' },
+              ].map((filter) => (
+                <button
+                  key={filter.key}
+                  onClick={() => setExperienceFilter(filter.key as 'all' | 'canada' | 'malaysia' | 'bangladesh')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    experienceFilter === filter.key
+                      ? 'bg-accent-500/20 border border-accent-500/50 text-accent-400'
+                      : 'bg-neutral-800/50 border border-neutral-700/50 text-neutral-400 hover:text-white hover:border-neutral-600'
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
             </div>
           </motion.div>
 
@@ -560,7 +590,7 @@ const HomeNew = () => {
                 {/* Carousel Container */}
                 <div className="overflow-hidden">
                   <div className="grid lg:grid-cols-3 gap-6">
-                    {experiences.slice(currentExperienceSlide, currentExperienceSlide + 3).map((exp, index) => {
+                    {filteredExperiences.slice(currentExperienceSlide, currentExperienceSlide + 3).map((exp, index) => {
                       const IconComponent = exp.Icon
                       return (
                         <motion.div
@@ -584,7 +614,7 @@ const HomeNew = () => {
                                 <IconComponent className={`w-8 h-8 text-${exp.color}-400`} strokeWidth={1.5} />
                               </div>
                               <div className={`px-3 py-1.5 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-full`}>
-                                <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.type}</span>
+                                <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.region === 'canada' ? '🇨🇦 Canada' : exp.region === 'malaysia' ? '🇲🇾 Malaysia' : '🇧🇩 Bangladesh'}</span>
                               </div>
                             </div>
 
@@ -644,7 +674,7 @@ const HomeNew = () => {
 
                   {/* Pagination Dots */}
                   <div className="flex items-center gap-3">
-                    {Array.from({ length: Math.ceil(experiences.length / 3) }).map((_, index) => (
+                    {Array.from({ length: Math.ceil(filteredExperiences.length / 3) }).map((_, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentExperienceSlide(index * 3)}
@@ -659,8 +689,8 @@ const HomeNew = () => {
 
                   {/* Next Button */}
                   <button
-                    onClick={() => setCurrentExperienceSlide(Math.min(experiences.length - 3, currentExperienceSlide + 3))}
-                    disabled={currentExperienceSlide >= experiences.length - 3}
+                    onClick={() => setCurrentExperienceSlide(Math.min(filteredExperiences.length - 3, currentExperienceSlide + 3))}
+                    disabled={currentExperienceSlide >= filteredExperiences.length - 3}
                     className="group p-4 bg-neutral-900/60 hover:bg-neutral-800/80 border border-neutral-800/50 hover:border-accent-500/50 rounded-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-neutral-800/50"
                   >
                     <ChevronRight className="w-6 h-6 text-neutral-400 group-hover:text-accent-400 transition-colors" strokeWidth={2} />
@@ -670,14 +700,14 @@ const HomeNew = () => {
                 {/* Experience Counter */}
                 <div className="text-center mt-8">
                   <p className="text-neutral-500 text-sm font-medium">
-                    Showing <span className="text-accent-400 font-bold">{currentExperienceSlide + 1}-{Math.min(currentExperienceSlide + 3, experiences.length)}</span> of <span className="text-accent-400 font-bold">{experiences.length}</span> experiences
+                    Showing <span className="text-accent-400 font-bold">{currentExperienceSlide + 1}-{Math.min(currentExperienceSlide + 3, filteredExperiences.length)}</span> of <span className="text-accent-400 font-bold">{filteredExperiences.length}</span> experiences
                   </p>
                 </div>
               </div>
             ) : (
               /* Grid View - Show All */
               <div className="grid lg:grid-cols-3 gap-6">
-                {experiences.map((exp, index) => {
+                {filteredExperiences.map((exp, index) => {
                   const IconComponent = exp.Icon
                   return (
                     <motion.div
@@ -701,7 +731,7 @@ const HomeNew = () => {
                             <IconComponent className={`w-8 h-8 text-${exp.color}-400`} strokeWidth={1.5} />
                           </div>
                           <div className={`px-3 py-1.5 bg-${exp.color}-500/10 border border-${exp.color}-500/30 rounded-full`}>
-                            <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.type}</span>
+                            <span className={`text-${exp.color}-400 text-xs font-bold uppercase tracking-wide`}>{exp.region === 'canada' ? '🇨🇦 Canada' : exp.region === 'malaysia' ? '🇲🇾 Malaysia' : '🇧🇩 Bangladesh'}</span>
                           </div>
                         </div>
 
@@ -1005,170 +1035,6 @@ const HomeNew = () => {
         </div>
       </footer>
 
-      {/* Modals */}
-      <PortfolioModal
-        isOpen={devModalOpen}
-        onClose={() => setDevModalOpen(false)}
-        title="Development Projects"
-      >
-        <div className="space-y-8">
-          {/* Featured Projects Grid */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              { title: 'E-Commerce Platform', desc: 'Full-stack e-commerce solution with payment integration', tech: ['React', 'Node.js', 'PostgreSQL'], icon: '🛒' },
-              { title: 'Task Management App', desc: 'Collaborative task management with real-time updates', tech: ['TypeScript', 'Firebase', 'Tailwind'], icon: '✅' },
-              { title: 'Portfolio Website', desc: 'Modern portfolio with smooth animations and responsive design', tech: ['React', 'Framer Motion', 'Vite'], icon: '🎨' },
-              { title: 'API Gateway Service', desc: 'Microservices architecture with API gateway pattern', tech: ['Node.js', 'Docker', 'MongoDB'], icon: '🔌' },
-            ].map((project, i) => (
-              <div key={i} className="group p-6 bg-neutral-800/30 hover:bg-neutral-800/50 rounded-xl border border-neutral-700/50 hover:border-dev-500/50 transition-all duration-300">
-                <div className="aspect-video bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-lg mb-4 flex items-center justify-center text-6xl border border-neutral-700/30 group-hover:scale-105 transition-transform duration-300">
-                  {project.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-dev-400 transition-colors">{project.title}</h3>
-                <p className="text-neutral-400 text-sm mb-4 leading-relaxed">{project.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-dev-500/10 border border-dev-500/20 text-dev-400 text-xs rounded-lg font-medium">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center pt-4 border-t border-neutral-800/50">
-            <p className="text-neutral-400 text-sm mb-4">Interested in my development work?</p>
-            <a href="https://github.com/mahimrahman" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-dev-500/10 hover:bg-dev-500/20 border border-dev-500/30 hover:border-dev-500/50 text-dev-400 rounded-xl transition-all duration-300 font-medium">
-              <Github className="w-5 h-5" />
-              View on GitHub
-            </a>
-          </div>
-        </div>
-      </PortfolioModal>
-
-      <PortfolioModal
-        isOpen={uiuxModalOpen}
-        onClose={() => setUiuxModalOpen(false)}
-        title="UI/UX Design Projects"
-      >
-        <div className="space-y-8">
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              { title: 'Mobile Banking App', desc: 'Redesigned banking experience with focus on accessibility', tools: ['Figma', 'User Research'], icon: '💳' },
-              { title: 'Food Delivery Platform', desc: 'End-to-end design system for food ordering service', tools: ['Sketch', 'Prototyping'], icon: '🍔' },
-              { title: 'Healthcare Dashboard', desc: 'Data visualization dashboard for medical professionals', tools: ['Figma', 'User Testing'], icon: '🏥' },
-              { title: 'Social Media App', desc: 'Modern social platform with engaging user interactions', tools: ['Adobe XD', 'Wireframing'], icon: '📱' },
-            ].map((project, i) => (
-              <div key={i} className="group p-6 bg-neutral-800/30 hover:bg-neutral-800/50 rounded-xl border border-neutral-700/50 hover:border-uiux-500/50 transition-all duration-300">
-                <div className="aspect-video bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-lg mb-4 flex items-center justify-center text-6xl border border-neutral-700/30 group-hover:scale-105 transition-transform duration-300">
-                  {project.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-uiux-400 transition-colors">{project.title}</h3>
-                <p className="text-neutral-400 text-sm mb-4 leading-relaxed">{project.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tools.map((tool, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-uiux-500/10 border border-uiux-500/20 text-uiux-400 text-xs rounded-lg font-medium">
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </PortfolioModal>
-
-      <PortfolioModal
-        isOpen={designModalOpen}
-        onClose={() => setDesignModalOpen(false)}
-        title="Graphic Design Portfolio"
-      >
-        <div className="space-y-6">
-          <p className="text-neutral-400 text-center">A collection of branding, print, and digital design work</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { emoji: '🎨', title: 'Brand Identity', category: 'Branding' },
-              { emoji: '🖼️', title: 'Poster Design', category: 'Print' },
-              { emoji: '🏷️', title: 'Logo Collection', category: 'Logos' },
-              { emoji: '📱', title: 'App Icons', category: 'Digital' },
-              { emoji: '🎭', title: 'Event Branding', category: 'Branding' },
-              { emoji: '📰', title: 'Magazine Layout', category: 'Print' },
-            ].map((item, i) => (
-              <button
-                key={i}
-                onClick={() => openGallery([
-                  { id: 1, title: item.title, category: item.category, placeholder: item.emoji },
-                  { id: 2, title: 'Design Variation 1', category: item.category, placeholder: item.emoji },
-                  { id: 3, title: 'Design Variation 2', category: item.category, placeholder: item.emoji },
-                ], 0)}
-                className="group aspect-square bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-700/50 hover:border-design-500/50 rounded-xl hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center text-5xl md:text-6xl"
-              >
-                <span className="mb-2">{item.emoji}</span>
-                <span className="text-xs text-neutral-400 group-hover:text-design-400 transition-colors font-medium">{item.category}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </PortfolioModal>
-
-      <PortfolioModal
-        isOpen={photoModalOpen}
-        onClose={() => setPhotoModalOpen(false)}
-        title="Photography Gallery"
-      >
-        <div className="space-y-6">
-          <p className="text-neutral-400 text-center">Capturing moments through the lens - Street, Portrait & Landscape photography</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { emoji: '🌆', title: 'Urban Landscape', desc: 'City lights at golden hour', category: 'Street' },
-              { emoji: '👤', title: 'Portrait Series', desc: 'Natural light portraiture', category: 'Portrait' },
-              { emoji: '🏔️', title: 'Mountain Vista', desc: 'Dawn in the mountains', category: 'Landscape' },
-              { emoji: '🌃', title: 'Night Photography', desc: 'Urban nightscapes', category: 'Street' },
-              { emoji: '🌅', title: 'Sunrise Collection', desc: 'Morning golden hour', category: 'Landscape' },
-              { emoji: '📸', title: 'Event Coverage', desc: 'Candid moments', category: 'Portrait' },
-              { emoji: '🏙️', title: 'Architecture', desc: 'Modern buildings', category: 'Street' },
-              { emoji: '🌲', title: 'Nature Series', desc: 'Natural landscapes', category: 'Landscape' },
-              { emoji: '🎭', title: 'Cultural Events', desc: 'Festival photography', category: 'Portrait' },
-            ].map((item, i) => (
-              <button
-                key={i}
-                onClick={() => openGallery([
-                  { id: 1, title: item.title, category: item.category, placeholder: item.emoji, description: item.desc },
-                  { id: 2, title: `${item.title} - Shot 2`, category: item.category, placeholder: item.emoji, description: item.desc },
-                  { id: 3, title: `${item.title} - Shot 3`, category: item.category, placeholder: item.emoji, description: item.desc },
-                ], 0)}
-                className="group aspect-square bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-700/50 hover:border-photo-500/50 rounded-xl hover:scale-105 transition-all duration-300 flex items-center justify-center text-5xl md:text-6xl relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <span className="relative z-10">{item.emoji}</span>
-                <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-xs text-white font-medium">{item.title}</p>
-                  <p className="text-xs text-neutral-400">{item.category}</p>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Social Link */}
-          <div className="text-center pt-4 border-t border-neutral-800/50">
-            <p className="text-neutral-400 text-sm mb-4">See more on my photography page</p>
-            <a href="https://www.instagram.com/snazzy_memories/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-photo-500/10 hover:bg-photo-500/20 border border-photo-500/30 hover:border-photo-500/50 text-photo-400 rounded-xl transition-all duration-300 font-medium">
-              <Instagram className="w-5 h-5" />
-              Follow on Instagram
-            </a>
-          </div>
-        </div>
-      </PortfolioModal>
-
-      {galleryOpen && (
-        <ImageGalleryModal
-          images={galleryImages}
-          initialIndex={galleryIndex}
-          onClose={() => setGalleryOpen(false)}
-        />
-      )}
     </div>
   )
 }
